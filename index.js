@@ -1,7 +1,11 @@
 const express = require('express');
+const path = require('path');
+
 const mongoose = require('mongoose');
 const app = express();
 const port = 3000;
+
+app.use(express.static(path.join(__dirname, 'public')));
 
 const regionRoutes = require('./routes/regionRoutes'); // Assurez-vous que le chemin est correct
 const communeRoutes = require('./routes/communeRoutes'); // Assurez-vous que le chemin est correct
@@ -18,9 +22,8 @@ mongoose.connect('mongodb+srv://xenlior:xenlior@cluster0.aowfv.mongodb.net/api-g
   .then(() => console.log('Connexion à MongoDB réussie !'))
   .catch(() => console.log('Connexion à MongoDB échouée !'));
 
-// Définition d'une route de test
 app.get('/', (req, res) => {
-  res.send('Hello World!');
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 app.use(regionRoutes);
