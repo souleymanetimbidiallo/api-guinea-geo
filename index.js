@@ -29,8 +29,12 @@ app.use(quartierRoutes);
 app.use(prefectureRoutes);
 app.use(sousPrefectureRoutes);
 
+// Vérifie si l'application s'exécute localement
+if (!process.env.VERCEL) {
+  app.listen(port, () => {
+    console.log(`L'application est démarrée sur http://localhost:${port}`);
+  });
+}
 
-// Démarrage du serveur
-app.listen(port, () => {
-  console.log(`L'application est démarrée sur http://localhost:${port}`);
-});
+// Exportation pour Vercel
+module.exports = app;
