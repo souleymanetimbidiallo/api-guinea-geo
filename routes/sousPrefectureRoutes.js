@@ -16,7 +16,7 @@ router.post('/sous-prefectures', async (req, res) => {
 // Lire toutes les régions
 router.get('/sous-prefectures', async (req, res) => {
   try {
-    const sousPrefectures = await SousPrefecture.find();
+    const sousPrefectures = await SousPrefecture.find().select('-_id -__v').populate('prefecture', 'name -_id');
     res.status(200).send(sousPrefectures);
   } catch (error) {
     res.status(500).send(error);

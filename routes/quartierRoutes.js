@@ -16,7 +16,7 @@ router.post('/quartiers', async (req, res) => {
 // Lire tous les quartiers
 router.get('/quartiers', async (req, res) => {
   try {
-    const quartiers = await Quartier.find().populate('commune').select('-_id -__v').then(data => res.send(data));;
+    const quartiers = await Quartier.find().select('-_id -__v').populate('commune', '-_id -__v');
     res.status(200).send(quartiers);
   } catch (error) {
     res.status(500).send(error);

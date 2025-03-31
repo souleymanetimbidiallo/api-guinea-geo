@@ -16,7 +16,7 @@ router.post('/communes', async (req, res) => {
 // Lire toutes les communes
 router.get('/communes', async (req, res) => {
   try {
-    const communes = await Commune.find().populate('region');
+    const communes = await Commune.find().select('-_id -__v').populate('region', '-_id -__v');
     res.status(200).send(communes);
   } catch (error) {
     res.status(500).send(error);

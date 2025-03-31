@@ -16,7 +16,7 @@ router.post('/regions', async (req, res) => {
 // Lire toutes les régions
 router.get('/regions', async (req, res) => {
   try {
-    const regions = await Region.find();
+    const regions = await  Region.find().select('-_id -__v');
     res.status(200).send(regions);
   } catch (error) {
     res.status(500).send(error);
