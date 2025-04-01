@@ -1,4 +1,4 @@
-const Commune = require('../models/communeModel');
+const Commune = require('../models/CommuneModel');
 const Region = require('../models/regionModel');
 
 // Créer une nouvelle commune

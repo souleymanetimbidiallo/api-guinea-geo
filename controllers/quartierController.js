@@ -1,5 +1,5 @@
 const Quartier = require('../models/quartierModel');
-const Commune = require('../models/communeModel');
+const Commune = require('../models/CommuneModel');
 
 // Créer un quartier
 exports.createQuartier = async (req, res, next) => {
