@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 const errorHandler = require('./utils/errorHandler');
 require('dotenv').config();
-const swaggerDocs = require('./swagger');
+//const swaggerDocs = require('./swagger');
 
 
 const mongoose = require('mongoose');
@@ -10,7 +10,7 @@ const app = express();
 const port = 3000;
 
 app.use(express.static(path.join(__dirname, 'public')));
-swaggerDocs(app);
+//swaggerDocs(app);
 
 const regionRoutes = require('./routes/regionRoutes'); // Assurez-vous que le chemin est correct
 const communeRoutes = require('./routes/communeRoutes'); // Assurez-vous que le chemin est correct
