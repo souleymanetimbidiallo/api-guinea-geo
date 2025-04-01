@@ -1,26 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const Commune = require('../models/CommuneModel'); // Assurez-vous que le chemin est correct
+const communeController = require('../controllers/communeController');
 
-// Créer une nouvelle commune
-router.post('/communes', async (req, res) => {
-  try {
-    const commune = new Commune(req.body);
-    const savedCommune = await commune.save();
-    res.status(201).send(savedCommune);
-  } catch (error) {
-    res.status(400).send(error);
-  }
-});
 
-// Lire toutes les communes
-router.get('/communes', async (req, res) => {
-  try {
-    const communes = await Commune.find().select('-_id -__v').populate('region', '-_id -__v');
-    res.status(200).send(communes);
-  } catch (error) {
-    res.status(500).send(error);
-  }
-});
+// Obtenir toutes les communes
+router.get('/communes', communeController.getAllCommunes);
+
+// Rechercher une commune par nom
+router.get('/communes/search', communeController.getCommuneByName);
 
 module.exports = router;

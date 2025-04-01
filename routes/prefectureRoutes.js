@@ -1,28 +1,15 @@
 const express = require('express');
 const router = express.Router();
-const Prefecture = require('../models/prefectureModel'); // Assurez-vous que le chemin est correct
+const prefectureController = require('../controllers/prefectureController');
 
-// Créer une nouvelle région
-router.post('/prefectures', async (req, res) => {
-  try {
-    const prefecture = new Prefecture(req.body);
-    const savedPrefecture = await prefecture.save();
-    res.status(201).send(savedPrefecture);
-  } catch (error) {
-    res.status(400).send(error);
-  }
-});
+// Lire toutes les préfectures
+router.get('/prefectures', prefectureController.getAllPrefectures);
 
-// Lire toutes les régions
-router.get('/prefectures', async (req, res) => {
-  try {
-    const prefectures = await Prefecture.find().select('-_id -__v').populate('region', 'name -_id');
-    res.status(200).send(prefectures);
-  } catch (error) {
-    res.status(500).send(error);
-  }
-});
+// Obtenir les statistiques des préfectures
+router.get('/prefectures/stats', prefectureController.getPrefectureStats);
 
-// Ajoutez ici d'autres routes si nécessaire (mise à jour, suppression, etc.)
+// 
+router.get('/prefectures/search', prefectureController.getPrefectureByName);
 
 module.exports = router;
+

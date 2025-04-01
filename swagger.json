@@ -1,0 +1,261 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "API Guinée Geo",
+      "version": "1.0.0",
+      "description": "API publique pour les subdivisions administratives de la Guinée : régions, préfectures, sous-préfectures, communes et quartiers."
+    },
+    "servers": [
+      { "url": "https://api-guinea-geo.vercel.app" },
+      { "url": "http://localhost:3000" }
+    ],
+    "paths": {
+      "/regions": {
+        "get": {
+          "summary": "Liste des régions",
+          "responses": {
+            "200": {
+              "description": "Retourne toutes les régions.",
+              "content": {
+                "application/json": {
+                  "schema": { "type": "array", "items": { "$ref": "#/components/schemas/Region" } }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/regions/search": {
+        "get": {
+          "summary": "Chercher une région par nom",
+          "parameters": [
+            {
+              "name": "name",
+              "in": "query",
+              "required": true,
+              "schema": { "type": "string" },
+              "description": "Nom de la région"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Détails de la région",
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/Region" }
+                }
+              }
+            },
+            "404": { "description": "Région non trouvée" }
+          }
+        }
+      },
+      "/prefectures": {
+        "get": {
+          "summary": "Liste des préfectures",
+          "responses": {
+            "200": {
+              "description": "Retourne toutes les préfectures.",
+              "content": {
+                "application/json": {
+                  "schema": { "type": "array", "items": { "$ref": "#/components/schemas/Prefecture" } }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/prefectures/search": {
+        "get": {
+          "summary": "Chercher une préfecture par nom",
+          "parameters": [
+            {
+              "name": "name",
+              "in": "query",
+              "required": true,
+              "schema": { "type": "string" },
+              "description": "Nom de la préfecture"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Détails de la préfecture",
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/Prefecture" }
+                }
+              }
+            },
+            "404": { "description": "Préfecture non trouvée" }
+          }
+        }
+      },
+      "/sous-prefectures": {
+        "get": {
+          "summary": "Liste des sous-préfectures",
+          "responses": {
+            "200": {
+              "description": "Retourne toutes les sous-préfectures.",
+              "content": {
+                "application/json": {
+                  "schema": { "type": "array", "items": { "$ref": "#/components/schemas/SousPrefecture" } }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/sous-prefectures/search": {
+        "get": {
+          "summary": "Chercher une sous-préfecture par nom",
+          "parameters": [
+            {
+              "name": "name",
+              "in": "query",
+              "required": true,
+              "schema": { "type": "string" },
+              "description": "Nom de la sous-préfecture"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Détails de la sous-préfecture",
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/SousPrefecture" }
+                }
+              }
+            },
+            "404": { "description": "Sous-préfecture non trouvée" }
+          }
+        }
+      },
+      "/communes": {
+        "get": {
+          "summary": "Liste des communes",
+          "responses": {
+            "200": {
+              "description": "Retourne toutes les communes.",
+              "content": {
+                "application/json": {
+                  "schema": { "type": "array", "items": { "$ref": "#/components/schemas/Commune" } }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/communes/search": {
+        "get": {
+          "summary": "Chercher une commune par nom",
+          "parameters": [
+            {
+              "name": "name",
+              "in": "query",
+              "required": true,
+              "schema": { "type": "string" },
+              "description": "Nom de la commune"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Détails de la commune",
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/Commune" }
+                }
+              }
+            },
+            "404": { "description": "Commune non trouvée" }
+          }
+        }
+      },
+      "/quartiers": {
+        "get": {
+          "summary": "Liste des quartiers",
+          "responses": {
+            "200": {
+              "description": "Retourne toutes les quartiers.",
+              "content": {
+                "application/json": {
+                  "schema": { "type": "array", "items": { "$ref": "#/components/schemas/Quartier" } }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/quartiers/search": {
+        "get": {
+          "summary": "Chercher une quartier par nom",
+          "parameters": [
+            {
+              "name": "name",
+              "in": "query",
+              "required": true,
+              "schema": { "type": "string" },
+              "description": "Nom de la quartier"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Détails de la quartier",
+              "content": {
+                "application/json": {
+                  "schema": { "$ref": "#/components/schemas/Quartier" }
+                }
+              }
+            },
+            "404": { "description": "Quartier non trouvée" }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "Region": {
+          "type": "object",
+          "properties": {
+            "name": { "type": "string" },
+            "zone": { "type": "string" },
+            "population": { "type": "integer" },
+            "area": { "type": "number" }
+          }
+        },
+        "Prefecture": {
+          "type": "object",
+          "properties": {
+            "name": { "type": "string" },
+            "population": { "type": "integer" },
+            "area": { "type": "number" },
+            "region": { "type": "object", "properties": { "name": { "type": "string" } } }
+          }
+        },
+        "SousPrefecture": {
+          "type": "object",
+          "properties": {
+            "name": { "type": "string" },
+            "population": { "type": "integer" },
+            "prefecture": { "type": "object", "properties": { "name": { "type": "string" } } }
+          }
+        },
+        "Commune": {
+          "type": "object",
+          "properties": {
+            "name": { "type": "string" },
+            "population": { "type": "integer" },
+            "region": { "type": "object", "properties": { "name": { "type": "string" } } }
+          }
+        },
+        "Quartier": {
+          "type": "object",
+          "properties": {
+            "name": { "type": "string" },
+            "population": { "type": "integer" },
+            "commune": { "type": "object", "properties": { "name": { "type": "string" } } }
+          }
+        }
+      }
+    }
+  }
+  

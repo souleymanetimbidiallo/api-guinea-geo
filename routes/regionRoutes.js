@@ -1,28 +1,39 @@
 const express = require('express');
 const router = express.Router();
-const Region = require('../models/regionModel'); // Assurez-vous que le chemin est correct
+const regionController = require('../controllers/regionController');
 
-// Créer une nouvelle région
-router.post('/regions', async (req, res) => {
-  try {
-    const region = new Region(req.body);
-    const savedRegion = await region.save();
-    res.status(201).send(savedRegion);
-  } catch (error) {
-    res.status(400).send(error);
-  }
-});
 
-// Lire toutes les régions
-router.get('/regions', async (req, res) => {
-  try {
-    const regions = await  Region.find().select('-_id -__v');
-    res.status(200).send(regions);
-  } catch (error) {
-    res.status(500).send(error);
-  }
-});
+/**
+ * @swagger
+ * /regions:
+ *   get:
+ *     summary: Obtenir toutes les régions
+ *     responses:
+ *       200:
+ *         description: Liste des régions
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   name:
+ *                     type: string
+ *                   zone:
+ *                     type: string
+ *                   population:
+ *                     type: integer
+ */
+router.get('/regions', regionController.getAllRegions);
 
-// Ajoutez ici d'autres routes si nécessaire (mise à jour, suppression, etc.)
+// Obtenir une région par nom
+router.get('/regions/search', regionController.getRegionByName);
+
+// Obtenir les statistiques des régions
+router.get('/regions/stats', regionController.getRegionStats);
+
+// Obtenir les préfectures d'une région par nom
+router.get('/regions/:name/prefectures', regionController.getPrefecturesByRegionName);
 
 module.exports = router;
