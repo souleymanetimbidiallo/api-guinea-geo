@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Quartier = require('../models/quartierModel');
-const Commune = require('../models/CommuneModel'); // Assurez-vous que le chemin d'accès est correct
+const Commune = require('../models/communeModel'); // Assurez-vous que le chemin d'accès est correct
 
 
 

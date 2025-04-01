@@ -1,28 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const SousPrefecture = require('../models/sousPrefectureModel'); // Assurez-vous que le chemin est correct
+const sousPrefectureController = require('../controllers/sousPrefectureController');
 
-// Créer une nouvelle région
-router.post('/sous-prefectures', async (req, res) => {
-  try {
-    const sousPrefecture = new Prefecture(req.body);
-    const savedSousPrefecture = await sousPrefecture.save();
-    res.status(201).send(savedSousPrefecture);
-  } catch (error) {
-    res.status(400).send(error);
-  }
-});
 
-// Lire toutes les régions
-router.get('/sous-prefectures', async (req, res) => {
-  try {
-    const sousPrefectures = await SousPrefecture.find().select('-_id -__v').populate('prefecture', 'name -_id');
-    res.status(200).send(sousPrefectures);
-  } catch (error) {
-    res.status(500).send(error);
-  }
-});
+// Obtenir toutes les sous-préfectures
+router.get('/sous-prefectures', sousPrefectureController.getAllSousPrefectures);
 
-// Ajoutez ici d'autres routes si nécessaire (mise à jour, suppression, etc.)
+// Filtrer par nom
+router.get('/sous-prefectures/search', sousPrefectureController.getSousPrefectureByName);
 
 module.exports = router;

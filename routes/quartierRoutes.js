@@ -1,26 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const Quartier = require('../models/quartierModel'); // Assurez-vous que le chemin est correct
+const quartierController = require('../controllers/quartierController');
 
-// Créer un nouveau quartier
-router.post('/quartiers', async (req, res) => {
-  try {
-    const quartier = new Quartier(req.body);
-    const savedQuartier = await quartier.save();
-    res.status(201).send(savedQuartier);
-  } catch (error) {
-    res.status(400).send(error);
-  }
-});
 
-// Lire tous les quartiers
-router.get('/quartiers', async (req, res) => {
-  try {
-    const quartiers = await Quartier.find().select('-_id -__v').populate('commune', '-_id -__v');
-    res.status(200).send(quartiers);
-  } catch (error) {
-    res.status(500).send(error);
-  }
-});
+// Obtenir tous les quartiers
+router.get('/quartiers', quartierController.getAllQuartiers);
+
+// Rechercher un quartier par nom
+router.get('/quartiers/search', quartierController.getQuartierByName);
 
 module.exports = router;
