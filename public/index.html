@@ -5,60 +5,118 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>API Guinée Geo</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
 </head>
-<body class="bg-gray-100 font-sans">
+<body class="bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200 font-sans transition-colors duration-300">
 
   <!-- En-tête -->
-  <header class="bg-green-600 text-white py-6 text-center shadow-md">
+  <header class="bg-green-600 text-white py-6 text-center shadow-md dark:bg-green-700">
     <h1 class="text-4xl font-bold animate-pulse">🌍 API Guinée Geo 🚀</h1>
     <p class="text-lg mt-2">Les données géographiques de la Guinée en accès libre 🇬🇳</p>
   </header>
 
   <!-- Contenu principal -->
   <main class="container mx-auto px-4 py-12">
-    <div class="bg-white shadow-xl rounded-lg p-8 max-w-2xl mx-auto">
+    <div class="bg-white dark:bg-gray-800 shadow-xl rounded-lg p-8 max-w-2xl mx-auto">
 
-      <p class="text-gray-700 mb-6">
+      <p class="mb-6">
         Bienvenue sur l'<strong>API Guinée Geo</strong>, une API gratuite et ouverte recensant toutes les informations géographiques de la République de Guinée.
       </p>
 
-      <h2 class="text-xl font-semibold text-gray-800">🔗 Routes disponibles :</h2>
-      <ul class="mt-4 text-gray-600 space-y-2">
-        <li>📍 <a href="/regions" class="text-green-700 underline"><code>/regions</code></a> : Afficher toutes les régions</li>
-        <li>🏙️ <a href="/communes" class="text-green-700 underline"><code>/communes</code></a> : Afficher toutes les communes</li>
-        <li>📌 <a href="/quartiers" class="text-green-700 underline"><code>/quartiers</code></a> : Afficher tous les quartiers</li>
-        <li>🗺️ <a href="/prefectures" class="text-green-700 underline"><code>/prefectures</code></a> : Afficher toutes les préfectures</li>
-        <li>🛣️ <a href="/sous-prefectures" class="text-green-700 underline"><code>/sous-prefectures</code></a> : Afficher toutes les sous-préfectures</li>
+      <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-100">🔗 Routes rapides :</h2>
+      <ul class="mt-4 text-gray-600 dark:text-gray-300 space-y-2">
+        <li>📍 <a href="/regions" class="text-green-700 dark:text-green-400 underline"><code>/regions</code></a> : Afficher toutes les régions</li>
+        <li>🏙️ <a href="/communes" class="text-green-700 dark:text-green-400 underline"><code>/communes</code></a> : Afficher toutes les communes</li>
+        <li>📌 <a href="/quartiers" class="text-green-700 dark:text-green-400 underline"><code>/quartiers</code></a> : Afficher tous les quartiers</li>
+        <li>🗺️ <a href="/prefectures" class="text-green-700 dark:text-green-400 underline"><code>/prefectures</code></a> : Afficher toutes les préfectures</li>
+        <li>🛣️ <a href="/sous-prefectures" class="text-green-700 dark:text-green-400 underline"><code>/sous-prefectures</code></a> : Afficher toutes les sous-préfectures</li>
       </ul>
 
-      <a href="/api-docs" class="inline-block bg-green-600 text-white px-4 py-2 mt-6 rounded hover:bg-green-700 transition">
-        📘 Accéder à la documentation Swagger
-      </a>
+      <!-- Documentation -->
+      <div class="mt-8 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg p-6">
+        <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-4">📘 Documentation de l’API</h2>
+
+        <p class="text-sm mb-4">Toutes les routes renvoient des données au format JSON :</p>
+
+        <ul class="space-y-4 text-sm">
+          <li><span class="font-semibold text-green-600">GET</span> <a href="/regions" target="_blank" class="bg-gray-200 dark:bg-gray-600 px-2 py-1 rounded ml-2 text-blue-700 dark:text-blue-300 underline">/regions</a> – Liste des régions</li>
+          <li><span class="font-semibold text-green-600">GET</span> <a href="/regions/search?name=Labé" target="_blank" class="bg-gray-200 dark:bg-gray-600 px-2 py-1 rounded ml-2 text-blue-700 dark:text-blue-300 underline">/regions/search?name=Labé</a> – Rechercher une région</li>
+          <li><span class="font-semibold text-green-600">GET</span> <a href="/prefectures" target="_blank" class="bg-gray-200 dark:bg-gray-600 px-2 py-1 rounded ml-2 text-blue-700 dark:text-blue-300 underline">/prefectures</a> – Liste des préfectures</li>
+          <li><span class="font-semibold text-green-600">GET</span> <a href="/prefectures/search?name=Kindia" target="_blank" class="bg-gray-200 dark:bg-gray-600 px-2 py-1 rounded ml-2 text-blue-700 dark:text-blue-300 underline">/prefectures/search?name=Kindia</a> – Rechercher une préfecture</li>
+          <li><span class="font-semibold text-green-600">GET</span> <a href="/communes" target="_blank" class="bg-gray-200 dark:bg-gray-600 px-2 py-1 rounded ml-2 text-blue-700 dark:text-blue-300 underline">/communes</a> – Liste des communes</li>
+          <li><span class="font-semibold text-green-600">GET</span> <a href="/communes/search?name=Matoto" target="_blank" class="bg-gray-200 dark:bg-gray-600 px-2 py-1 rounded ml-2 text-blue-700 dark:text-blue-300 underline">/communes/search?name=Matoto</a> – Rechercher une commune</li>
+          <li><span class="font-semibold text-green-600">GET</span> <a href="/sous-prefectures" target="_blank" class="bg-gray-200 dark:bg-gray-600 px-2 py-1 rounded ml-2 text-blue-700 dark:text-blue-300 underline">/sous-prefectures</a> – Liste des sous-préfectures</li>
+          <li><span class="font-semibold text-green-600">GET</span> <a href="/sous-prefectures/search?name=Koulé" target="_blank" class="bg-gray-200 dark:bg-gray-600 px-2 py-1 rounded ml-2 text-blue-700 dark:text-blue-300 underline">/sous-prefectures/search?name=Koulé</a> – Rechercher une sous-préfecture</li>
+          <li><span class="font-semibold text-green-600">GET</span> <a href="/quartiers" target="_blank" class="bg-gray-200 dark:bg-gray-600 px-2 py-1 rounded ml-2 text-blue-700 dark:text-blue-300 underline">/quartiers</a> – Liste des quartiers</li>
+          <li><span class="font-semibold text-green-600">GET</span> <a href="/quartiers/search?name=Almamya" target="_blank" class="bg-gray-200 dark:bg-gray-600 px-2 py-1 rounded ml-2 text-blue-700 dark:text-blue-300 underline">/quartiers/search?name=Almamya</a> – Rechercher un quartier</li>
+        </ul>
+
+        <p class="text-xs text-gray-500 mt-4">💡 Tous les résultats sont renvoyés au format JSON. Les recherches par nom retournent un objet ou une erreur 404.</p>
+      </div>
 
       <!-- À propos -->
       <div class="mt-10">
-        <h2 class="text-xl font-semibold mb-2 text-gray-800">ℹ️ À propos</h2>
-        <p class="text-gray-600">
+        <h2 class="text-xl font-semibold mb-2 text-gray-800 dark:text-white">ℹ️ À propos</h2>
+        <p class="text-gray-600 dark:text-gray-300">
           Cette API recense les subdivisions administratives officielles de la Guinée :
           régions, préfectures, sous-préfectures, communes et quartiers.
           Elle peut être utilisée pour des applications cartographiques, des projets open data, ou des analyses territoriales.
         </p>
       </div>
 
+      <div class="mt-12">
+        <h2 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">🗺️ Carte des régions de Guinée</h2>
+        <div id="map" class="h-96 w-full rounded shadow border dark:border-gray-600"></div>
+      </div>
+      
+
       <!-- Pied de page -->
-      <div class="mt-10 border-t pt-6 text-sm text-gray-500 text-center">
+      <div class="mt-10 border-t pt-6 text-sm text-gray-500 dark:border-gray-700 text-center">
         <p>
           Créé avec ❤️ par 
-          <a href="https://souleymanetimbidiallo.github.io/" target="_blank" class="text-green-600 font-semibold hover:underline">
+          <a href="https://souleymanetimbidiallo.github.io/" target="_blank" class="text-green-600 dark:text-green-400 font-semibold hover:underline">
             Souleymane Diallo
           </a>
         </p>
         <p class="mt-2">
-          📦 <a href="https://github.com/souleymanetimbidiallo/api-guinea-geo" class="underline hover:text-green-600">Voir le projet sur GitHub</a>
+          📦 <a href="https://github.com/souleymanetimbidiallo/api-guinea-geo" class="underline hover:text-green-600 dark:hover:text-green-400">Voir le projet sur GitHub</a>
         </p>
       </div>
     </div>
   </main>
+  
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    const map = L.map('map').setView([10.5, -10.8], 6); // Centré sur la Guinée
+  
+    L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+      maxZoom: 18,
+    }).addTo(map);
+  
+    // Exemple de régions avec coordonnées approximatives
+    const regions = [
+      { name: 'Conakry', coords: [9.5092, -13.7122] },
+      { name: 'Labé', coords: [11.3181, -12.2915] },
+      { name: 'Kindia', coords: [10.062, -12.871] },
+      { name: 'Boké', coords: [10.94, -14.3] },
+      { name: 'Nzérékoré', coords: [7.75, -8.83] },
+      { name: 'Kankan', coords: [10.39, -9.31] },
+      { name: 'Mamou', coords: [10.38, -12.08] },
+      { name: 'Faranah', coords: [10.05, -10.74] }
+    ];
+  
+    regions.forEach(region => {
+      L.marker(region.coords)
+        .addTo(map)
+        .bindPopup(`<strong>${region.name}</strong><br><a href="/regions/search?name=${region.name}" class="underline">Voir dans l'API</a>`);
+    });
+  </script>
+  
 
 </body>
 </html>
