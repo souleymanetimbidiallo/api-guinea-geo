@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const { validateSearchName } = require('../utils/searchName');
 const sousPrefectureController = require('../controllers/sousPrefectureController');
 
 
@@ -7,6 +8,6 @@ const sousPrefectureController = require('../controllers/sousPrefectureControlle
 router.get('/sous-prefectures', sousPrefectureController.getAllSousPrefectures);
 
 // Filtrer par nom
-router.get('/sous-prefectures/search', sousPrefectureController.getSousPrefectureByName);
+router.get('/sous-prefectures/search', validateSearchName, sousPrefectureController.getSousPrefectureByName);
 
 module.exports = router;

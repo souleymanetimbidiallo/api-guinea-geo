@@ -1,0 +1,525 @@
+{
+  "id": "rgph4-guinea-2025-preliminary-verified",
+  "reviewedAt": "2026-10-10",
+  "referenceYear": 2025,
+  "collectionPeriod": {
+    "from": "2025-07-01",
+    "to": "2025-07-31"
+  },
+  "publicationStatus": "preliminary",
+  "source": {
+    "publisher": "Institut National de la Statistique de Guinée",
+    "title": "RGPH-4 2025 — Résultats préliminaires",
+    "publishedAt": "2026-02-25",
+    "url": "https://www.stat-guinee.org/images/Documents/Publications/INS/rapports_enquetes/RGPH-4/Resultats_preliminaires_rgph_4.pdf",
+    "sha256": "b8cfb4a13f355cd4610bcd3fbc8bd8f84eb8e28a2f2a5e4e988bf489fe476537"
+  },
+  "geographicReference": "Périmètres administratifs du recensement de juillet 2025, avant les créations du 20 août 2026.",
+  "national": {
+    "population": 17521167,
+    "male": 8452911,
+    "female": 9068256
+  },
+  "regions": [
+    {
+      "name": "Boké",
+      "population": 1628656,
+      "male": 798788,
+      "female": 829868,
+      "sourcePdfPage": 28,
+      "sourcePrintedPage": 26
+    },
+    {
+      "name": "Conakry",
+      "population": 3407327,
+      "male": 1653256,
+      "female": 1754071,
+      "sourcePdfPage": 28,
+      "sourcePrintedPage": 26
+    },
+    {
+      "name": "Faranah",
+      "population": 1460931,
+      "male": 696247,
+      "female": 764684,
+      "sourcePdfPage": 28,
+      "sourcePrintedPage": 26
+    },
+    {
+      "name": "Kankan",
+      "population": 4110215,
+      "male": 2063029,
+      "female": 2047186,
+      "sourcePdfPage": 28,
+      "sourcePrintedPage": 26
+    },
+    {
+      "name": "Kindia",
+      "population": 2275620,
+      "male": 1096242,
+      "female": 1179378,
+      "sourcePdfPage": 28,
+      "sourcePrintedPage": 26
+    },
+    {
+      "name": "Labé",
+      "population": 1239897,
+      "male": 540277,
+      "female": 699620,
+      "sourcePdfPage": 28,
+      "sourcePrintedPage": 26
+    },
+    {
+      "name": "Mamou",
+      "population": 916535,
+      "male": 405732,
+      "female": 510803,
+      "sourcePdfPage": 28,
+      "sourcePrintedPage": 26
+    },
+    {
+      "name": "Nzérékoré",
+      "population": 2481986,
+      "male": 1199340,
+      "female": 1282646,
+      "sourcePdfPage": 28,
+      "sourcePrintedPage": 26
+    }
+  ],
+  "prefectures": [
+    {
+      "name": "Boffa",
+      "regionAtCensus": "Boké",
+      "population": 287648,
+      "male": 144798,
+      "female": 142850,
+      "sourcePdfPage": 38,
+      "sourcePrintedPage": 36
+    },
+    {
+      "name": "Boké",
+      "regionAtCensus": "Boké",
+      "population": 777101,
+      "male": 385522,
+      "female": 391579,
+      "sourcePdfPage": 38,
+      "sourcePrintedPage": 36
+    },
+    {
+      "name": "Fria",
+      "regionAtCensus": "Boké",
+      "population": 126205,
+      "male": 61852,
+      "female": 64353,
+      "sourcePdfPage": 38,
+      "sourcePrintedPage": 36
+    },
+    {
+      "name": "Gaoual",
+      "regionAtCensus": "Boké",
+      "population": 257328,
+      "male": 120281,
+      "female": 137047,
+      "sourcePdfPage": 38,
+      "sourcePrintedPage": 36
+    },
+    {
+      "name": "Koundara",
+      "regionAtCensus": "Boké",
+      "population": 180374,
+      "male": 86335,
+      "female": 94039,
+      "sourcePdfPage": 38,
+      "sourcePrintedPage": 36
+    },
+    {
+      "name": "Dabola",
+      "regionAtCensus": "Faranah",
+      "population": 295613,
+      "male": 140588,
+      "female": 155025,
+      "sourcePdfPage": 38,
+      "sourcePrintedPage": 36
+    },
+    {
+      "name": "Dinguiraye",
+      "regionAtCensus": "Faranah",
+      "population": 327941,
+      "male": 157640,
+      "female": 170301,
+      "sourcePdfPage": 38,
+      "sourcePrintedPage": 36
+    },
+    {
+      "name": "Faranah",
+      "regionAtCensus": "Faranah",
+      "population": 444040,
+      "male": 210813,
+      "female": 233227,
+      "sourcePdfPage": 38,
+      "sourcePrintedPage": 36
+    },
+    {
+      "name": "Kissidougou",
+      "regionAtCensus": "Faranah",
+      "population": 393337,
+      "male": 187206,
+      "female": 206131,
+      "sourcePdfPage": 38,
+      "sourcePrintedPage": 36
+    },
+    {
+      "name": "Kankan",
+      "regionAtCensus": "Kankan",
+      "population": 841969,
+      "male": 414895,
+      "female": 427074,
+      "sourcePdfPage": 38,
+      "sourcePrintedPage": 36
+    },
+    {
+      "name": "Kérouané",
+      "regionAtCensus": "Kankan",
+      "population": 297935,
+      "male": 146693,
+      "female": 151242,
+      "sourcePdfPage": 38,
+      "sourcePrintedPage": 36
+    },
+    {
+      "name": "Kouroussa",
+      "regionAtCensus": "Kankan",
+      "population": 451205,
+      "male": 221545,
+      "female": 229660,
+      "sourcePdfPage": 38,
+      "sourcePrintedPage": 36
+    },
+    {
+      "name": "Mandiana",
+      "regionAtCensus": "Kankan",
+      "population": 800959,
+      "male": 405378,
+      "female": 395581,
+      "sourcePdfPage": 38,
+      "sourcePrintedPage": 36
+    },
+    {
+      "name": "Siguiri",
+      "regionAtCensus": "Kankan",
+      "population": 1718147,
+      "male": 874518,
+      "female": 843629,
+      "sourcePdfPage": 38,
+      "sourcePrintedPage": 36
+    },
+    {
+      "name": "Coyah",
+      "regionAtCensus": "Kindia",
+      "population": 344741,
+      "male": 169603,
+      "female": 175138,
+      "sourcePdfPage": 38,
+      "sourcePrintedPage": 36
+    },
+    {
+      "name": "Dubréka",
+      "regionAtCensus": "Kindia",
+      "population": 488569,
+      "male": 240410,
+      "female": 248159,
+      "sourcePdfPage": 38,
+      "sourcePrintedPage": 36
+    },
+    {
+      "name": "Forécariah",
+      "regionAtCensus": "Kindia",
+      "population": 415895,
+      "male": 203387,
+      "female": 212508,
+      "sourcePdfPage": 38,
+      "sourcePrintedPage": 36
+    },
+    {
+      "name": "Kindia",
+      "regionAtCensus": "Kindia",
+      "population": 680635,
+      "male": 326207,
+      "female": 354428,
+      "sourcePdfPage": 38,
+      "sourcePrintedPage": 36
+    },
+    {
+      "name": "Télimélé",
+      "regionAtCensus": "Kindia",
+      "population": 345780,
+      "male": 156635,
+      "female": 189145,
+      "sourcePdfPage": 38,
+      "sourcePrintedPage": 36
+    },
+    {
+      "name": "Koubia",
+      "regionAtCensus": "Labé",
+      "population": 125401,
+      "male": 56969,
+      "female": 68432,
+      "sourcePdfPage": 38,
+      "sourcePrintedPage": 36
+    },
+    {
+      "name": "Labé",
+      "regionAtCensus": "Labé",
+      "population": 475961,
+      "male": 212879,
+      "female": 263082,
+      "sourcePdfPage": 38,
+      "sourcePrintedPage": 36
+    },
+    {
+      "name": "Lélouma",
+      "regionAtCensus": "Labé",
+      "population": 179384,
+      "male": 71852,
+      "female": 107532,
+      "sourcePdfPage": 38,
+      "sourcePrintedPage": 36
+    },
+    {
+      "name": "Mali",
+      "regionAtCensus": "Labé",
+      "population": 313119,
+      "male": 135502,
+      "female": 177617,
+      "sourcePdfPage": 38,
+      "sourcePrintedPage": 36
+    },
+    {
+      "name": "Tougué",
+      "regionAtCensus": "Labé",
+      "population": 146032,
+      "male": 63075,
+      "female": 82957,
+      "sourcePdfPage": 38,
+      "sourcePrintedPage": 36
+    },
+    {
+      "name": "Dalaba",
+      "regionAtCensus": "Mamou",
+      "population": 169069,
+      "male": 74141,
+      "female": 94928,
+      "sourcePdfPage": 38,
+      "sourcePrintedPage": 36
+    },
+    {
+      "name": "Mamou",
+      "regionAtCensus": "Mamou",
+      "population": 460786,
+      "male": 211613,
+      "female": 249173,
+      "sourcePdfPage": 38,
+      "sourcePrintedPage": 36
+    },
+    {
+      "name": "Pita",
+      "regionAtCensus": "Mamou",
+      "population": 286680,
+      "male": 119978,
+      "female": 166702,
+      "sourcePdfPage": 38,
+      "sourcePrintedPage": 36
+    },
+    {
+      "name": "Beyla",
+      "regionAtCensus": "Nzérékoré",
+      "population": 511095,
+      "male": 249508,
+      "female": 261587,
+      "sourcePdfPage": 38,
+      "sourcePrintedPage": 36
+    },
+    {
+      "name": "Guéckédou",
+      "regionAtCensus": "Nzérékoré",
+      "population": 376885,
+      "male": 177560,
+      "female": 199325,
+      "sourcePdfPage": 38,
+      "sourcePrintedPage": 36
+    },
+    {
+      "name": "Lola",
+      "regionAtCensus": "Nzérékoré",
+      "population": 267869,
+      "male": 129035,
+      "female": 138834,
+      "sourcePdfPage": 38,
+      "sourcePrintedPage": 36
+    },
+    {
+      "name": "Macenta",
+      "regionAtCensus": "Nzérékoré",
+      "population": 408414,
+      "male": 196110,
+      "female": 212304,
+      "sourcePdfPage": 38,
+      "sourcePrintedPage": 36
+    },
+    {
+      "name": "Nzérékoré",
+      "regionAtCensus": "Nzérékoré",
+      "population": 717120,
+      "male": 350104,
+      "female": 367016,
+      "sourcePdfPage": 38,
+      "sourcePrintedPage": 36
+    },
+    {
+      "name": "Yomou",
+      "regionAtCensus": "Nzérékoré",
+      "population": 200603,
+      "male": 97023,
+      "female": 103580,
+      "sourcePdfPage": 38,
+      "sourcePrintedPage": 36
+    }
+  ],
+  "conakryCommunes": [
+    {
+      "name": "Dixinn",
+      "regionAtCensus": "Conakry",
+      "population": 186553,
+      "male": 91470,
+      "female": 95083,
+      "sourcePdfPage": 40,
+      "sourcePrintedPage": 38
+    },
+    {
+      "name": "Gbessia",
+      "regionAtCensus": "Conakry",
+      "population": 520284,
+      "male": 252672,
+      "female": 267612,
+      "sourcePdfPage": 40,
+      "sourcePrintedPage": 38
+    },
+    {
+      "name": "Kagbélen",
+      "regionAtCensus": "Conakry",
+      "population": 395370,
+      "male": 193521,
+      "female": 201849,
+      "sourcePdfPage": 40,
+      "sourcePrintedPage": 38
+    },
+    {
+      "name": "Kaloum",
+      "regionAtCensus": "Conakry",
+      "population": 49364,
+      "male": 23474,
+      "female": 25890,
+      "sourcePdfPage": 40,
+      "sourcePrintedPage": 38
+    },
+    {
+      "name": "Kassa",
+      "regionAtCensus": "Conakry",
+      "population": 9257,
+      "male": 4696,
+      "female": 4561,
+      "sourcePdfPage": 40,
+      "sourcePrintedPage": 38
+    },
+    {
+      "name": "Lambanyi",
+      "regionAtCensus": "Conakry",
+      "population": 385884,
+      "male": 185687,
+      "female": 200197,
+      "sourcePdfPage": 40,
+      "sourcePrintedPage": 38
+    },
+    {
+      "name": "Manéah",
+      "regionAtCensus": "Conakry",
+      "population": 232736,
+      "male": 114133,
+      "female": 118603,
+      "sourcePdfPage": 40,
+      "sourcePrintedPage": 38
+    },
+    {
+      "name": "Matam",
+      "regionAtCensus": "Conakry",
+      "population": 177271,
+      "male": 85990,
+      "female": 91281,
+      "sourcePdfPage": 40,
+      "sourcePrintedPage": 38
+    },
+    {
+      "name": "Matoto",
+      "regionAtCensus": "Conakry",
+      "population": 257026,
+      "male": 122661,
+      "female": 134365,
+      "sourcePdfPage": 40,
+      "sourcePrintedPage": 38
+    },
+    {
+      "name": "Ratoma",
+      "regionAtCensus": "Conakry",
+      "population": 187265,
+      "male": 90457,
+      "female": 96808,
+      "sourcePdfPage": 41,
+      "sourcePrintedPage": 39
+    },
+    {
+      "name": "Sanoyah",
+      "regionAtCensus": "Conakry",
+      "population": 322419,
+      "male": 156513,
+      "female": 165906,
+      "sourcePdfPage": 41,
+      "sourcePrintedPage": 39
+    },
+    {
+      "name": "Sonfonia",
+      "regionAtCensus": "Conakry",
+      "population": 310474,
+      "male": 150428,
+      "female": 160046,
+      "sourcePdfPage": 41,
+      "sourcePrintedPage": 39
+    },
+    {
+      "name": "Tombolia",
+      "regionAtCensus": "Conakry",
+      "population": 373424,
+      "male": 181554,
+      "female": 191870,
+      "sourcePdfPage": 41,
+      "sourcePrintedPage": 39
+    }
+  ],
+  "validation": {
+    "visualReviewPdfPages": [
+      28,
+      38,
+      40,
+      41
+    ],
+    "regionalSumMatchesNational": true,
+    "prefecturalSumsMatchRegions": true,
+    "conakryCommuneSumMatchesZone": true,
+    "malePlusFemaleMatchesEveryRow": true
+  },
+  "limitations": [
+    "Ces chiffres décrivent 2025 et ne constituent pas une estimation de la population en 2026.",
+    "Les nouvelles régions de Beyla et Siguiri n’existaient pas dans ce tableau régional de 2025.",
+    "Les chiffres des anciennes préfectures ou sous-préfectures ne doivent pas être transférés aux nouvelles entités sans correspondance de périmètre vérifiée.",
+    "Les superficies et les limites géographiques ne sont pas validées par ce fichier."
+  ]
+}

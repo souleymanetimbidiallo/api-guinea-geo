@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const { validateSearchName } = require('../utils/searchName');
 const regionController = require('../controllers/regionController');
 
 
@@ -28,7 +29,7 @@ const regionController = require('../controllers/regionController');
 router.get('/regions', regionController.getAllRegions);
 
 // Obtenir une région par nom
-router.get('/regions/search', regionController.getRegionByName);
+router.get('/regions/search', validateSearchName, regionController.getRegionByName);
 
 // Obtenir les statistiques des régions
 router.get('/regions/stats', regionController.getRegionStats);

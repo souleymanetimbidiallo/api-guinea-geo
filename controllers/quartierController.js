@@ -1,3 +1,6 @@
+const { serializeRecord } = require('../utils/populationResponse');
+const { activeFilter } = require('../utils/administrativeData');
+const { escapeName } = require('../utils/searchName');
 const Quartier = require('../models/quartierModel');
 const Commune = require('../models/CommuneModel');
 
@@ -6,7 +9,7 @@ exports.createQuartier = async (req, res, next) => {
   try {
     const quartier = new Quartier(req.body);
     const saved = await quartier.save();
-    res.status(201).json(saved);
+    res.status(201).json(serializeRecord(saved, { ...req.populationOptions, kind: 'quartiers' }));
   } catch (error) {
     next(error);
   }
@@ -15,10 +18,10 @@ exports.createQuartier = async (req, res, next) => {
 // Obtenir tous les quartiers
 exports.getAllQuartiers = async (req, res, next) => {
   try {
-    const quartiers = await Quartier.find()
+    const quartiers = await Quartier.find(activeFilter)
       .select('-_id -__v')
       .populate('commune', 'name -_id');
-    res.status(200).json(quartiers);
+    res.status(200).json(serializeRecord(quartiers, { ...req.populationOptions, kind: 'quartiers' }));
   } catch (error) {
     next(error);
   }
@@ -33,7 +36,7 @@ exports.getQuartierByName = async (req, res, next) => {
       return res.status(400).json({ message: "Veuillez fournir un nom avec ?name=..." });
     }
 
-    const quartier = await Quartier.findOne({ name: new RegExp(`^${name}$`, 'i') })
+    const quartier = await Quartier.findOne({ ...activeFilter, name: new RegExp(`^${escapeName(name)}$`, 'i') })
       .select('-_id -__v')
       .populate('commune', 'name -_id');
 
@@ -41,7 +44,7 @@ exports.getQuartierByName = async (req, res, next) => {
       return res.status(404).json({ message: "Quartier non trouvé", code: 404 });
     }
 
-    res.status(200).json(quartier);
+    res.status(200).json(serializeRecord(quartier, { ...req.populationOptions, kind: 'quartiers' }));
   } catch (error) {
     next(error);
   }

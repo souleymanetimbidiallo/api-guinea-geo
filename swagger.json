@@ -1,261 +1,1591 @@
 {
-    "openapi": "3.0.0",
-    "info": {
-      "title": "API Guinée Geo",
-      "version": "1.0.0",
-      "description": "API publique pour les subdivisions administratives de la Guinée : régions, préfectures, sous-préfectures, communes et quartiers."
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API Guinée Geo",
+    "version": "1.0.0",
+    "description": "API des subdivisions administratives de Guinée. population renvoie la dernière observation vérifiée, avec son année, sa source et son périmètre. Les anciennes valeurs sont masquées par défaut et disponibles via includeHistory=true. Les créations de 2026 et les limites de couverture sont documentées."
+  },
+  "servers": [
+    {
+      "url": "/",
+      "description": "Serveur courant"
     },
-    "servers": [
-      { "url": "https://api-guinea-geo.vercel.app" },
-      { "url": "http://localhost:3000" }
-    ],
-    "paths": {
-      "/regions": {
-        "get": {
-          "summary": "Liste des régions",
-          "responses": {
-            "200": {
-              "description": "Retourne toutes les régions.",
-              "content": {
-                "application/json": {
-                  "schema": { "type": "array", "items": { "$ref": "#/components/schemas/Region" } }
+    {
+      "url": "https://api-guinea-geo.vercel.app"
+    }
+  ],
+  "paths": {
+    "/regions": {
+      "get": {
+        "summary": "Liste des régions",
+        "responses": {
+          "200": {
+            "description": "Retourne toutes les régions.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Region"
+                  }
                 }
               }
             }
+          },
+          "400": {
+            "description": "Paramètre invalide"
           }
-        }
-      },
-      "/regions/search": {
-        "get": {
-          "summary": "Chercher une région par nom",
-          "parameters": [
-            {
-              "name": "name",
-              "in": "query",
-              "required": true,
-              "schema": { "type": "string" },
-              "description": "Nom de la région"
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "Détails de la région",
-              "content": {
-                "application/json": {
-                  "schema": { "$ref": "#/components/schemas/Region" }
-                }
-              }
+        },
+        "parameters": [
+          {
+            "name": "includeHistory",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false
             },
-            "404": { "description": "Région non trouvée" }
+            "description": "true pour ajouter populationHistory ; false ou absent pour retourner uniquement la dernière population vérifiée."
           }
-        }
-      },
-      "/prefectures": {
-        "get": {
-          "summary": "Liste des préfectures",
-          "responses": {
-            "200": {
-              "description": "Retourne toutes les préfectures.",
-              "content": {
-                "application/json": {
-                  "schema": { "type": "array", "items": { "$ref": "#/components/schemas/Prefecture" } }
-                }
-              }
-            }
-          }
-        }
-      },
-      "/prefectures/search": {
-        "get": {
-          "summary": "Chercher une préfecture par nom",
-          "parameters": [
-            {
-              "name": "name",
-              "in": "query",
-              "required": true,
-              "schema": { "type": "string" },
-              "description": "Nom de la préfecture"
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "Détails de la préfecture",
-              "content": {
-                "application/json": {
-                  "schema": { "$ref": "#/components/schemas/Prefecture" }
-                }
-              }
+        ]
+      }
+    },
+    "/regions/search": {
+      "get": {
+        "summary": "Chercher une région par nom",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
             },
-            "404": { "description": "Préfecture non trouvée" }
-          }
-        }
-      },
-      "/sous-prefectures": {
-        "get": {
-          "summary": "Liste des sous-préfectures",
-          "responses": {
-            "200": {
-              "description": "Retourne toutes les sous-préfectures.",
-              "content": {
-                "application/json": {
-                  "schema": { "type": "array", "items": { "$ref": "#/components/schemas/SousPrefecture" } }
-                }
-              }
-            }
-          }
-        }
-      },
-      "/sous-prefectures/search": {
-        "get": {
-          "summary": "Chercher une sous-préfecture par nom",
-          "parameters": [
-            {
-              "name": "name",
-              "in": "query",
-              "required": true,
-              "schema": { "type": "string" },
-              "description": "Nom de la sous-préfecture"
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "Détails de la sous-préfecture",
-              "content": {
-                "application/json": {
-                  "schema": { "$ref": "#/components/schemas/SousPrefecture" }
-                }
-              }
+            "description": "Nom de la région"
+          },
+          {
+            "name": "includeHistory",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false
             },
-            "404": { "description": "Sous-préfecture non trouvée" }
+            "description": "true pour ajouter populationHistory ; false ou absent pour retourner uniquement la dernière population vérifiée."
           }
-        }
-      },
-      "/communes": {
-        "get": {
-          "summary": "Liste des communes",
-          "responses": {
-            "200": {
-              "description": "Retourne toutes les communes.",
-              "content": {
-                "application/json": {
-                  "schema": { "type": "array", "items": { "$ref": "#/components/schemas/Commune" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Détails de la région",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Region"
                 }
               }
             }
-          }
-        }
-      },
-      "/communes/search": {
-        "get": {
-          "summary": "Chercher une commune par nom",
-          "parameters": [
-            {
-              "name": "name",
-              "in": "query",
-              "required": true,
-              "schema": { "type": "string" },
-              "description": "Nom de la commune"
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "Détails de la commune",
-              "content": {
-                "application/json": {
-                  "schema": { "$ref": "#/components/schemas/Commune" }
-                }
-              }
-            },
-            "404": { "description": "Commune non trouvée" }
-          }
-        }
-      },
-      "/quartiers": {
-        "get": {
-          "summary": "Liste des quartiers",
-          "responses": {
-            "200": {
-              "description": "Retourne toutes les quartiers.",
-              "content": {
-                "application/json": {
-                  "schema": { "type": "array", "items": { "$ref": "#/components/schemas/Quartier" } }
-                }
-              }
-            }
-          }
-        }
-      },
-      "/quartiers/search": {
-        "get": {
-          "summary": "Chercher une quartier par nom",
-          "parameters": [
-            {
-              "name": "name",
-              "in": "query",
-              "required": true,
-              "schema": { "type": "string" },
-              "description": "Nom de la quartier"
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "Détails de la quartier",
-              "content": {
-                "application/json": {
-                  "schema": { "$ref": "#/components/schemas/Quartier" }
-                }
-              }
-            },
-            "404": { "description": "Quartier non trouvée" }
+          },
+          "404": {
+            "description": "Région non trouvée"
+          },
+          "400": {
+            "description": "Paramètre name manquant ou invalide"
           }
         }
       }
     },
-    "components": {
-      "schemas": {
-        "Region": {
-          "type": "object",
-          "properties": {
-            "name": { "type": "string" },
-            "zone": { "type": "string" },
-            "population": { "type": "integer" },
-            "area": { "type": "number" }
+    "/prefectures": {
+      "get": {
+        "summary": "Liste des préfectures",
+        "responses": {
+          "200": {
+            "description": "Retourne toutes les préfectures.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Prefecture"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Paramètre invalide"
           }
         },
-        "Prefecture": {
-          "type": "object",
-          "properties": {
-            "name": { "type": "string" },
-            "population": { "type": "integer" },
-            "area": { "type": "number" },
-            "region": { "type": "object", "properties": { "name": { "type": "string" } } }
+        "parameters": [
+          {
+            "name": "includeHistory",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false
+            },
+            "description": "true pour ajouter populationHistory ; false ou absent pour retourner uniquement la dernière population vérifiée."
+          }
+        ]
+      }
+    },
+    "/prefectures/search": {
+      "get": {
+        "summary": "Chercher une préfecture par nom",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Nom de la préfecture"
+          },
+          {
+            "name": "includeHistory",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false
+            },
+            "description": "true pour ajouter populationHistory ; false ou absent pour retourner uniquement la dernière population vérifiée."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Détails de la préfecture",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Prefecture"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Préfecture non trouvée"
+          },
+          "400": {
+            "description": "Paramètre name manquant ou invalide"
+          }
+        }
+      }
+    },
+    "/sous-prefectures": {
+      "get": {
+        "summary": "Liste des sous-préfectures",
+        "responses": {
+          "200": {
+            "description": "Retourne toutes les sous-préfectures.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SousPrefecture"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Paramètre invalide"
           }
         },
-        "SousPrefecture": {
-          "type": "object",
-          "properties": {
-            "name": { "type": "string" },
-            "population": { "type": "integer" },
-            "prefecture": { "type": "object", "properties": { "name": { "type": "string" } } }
+        "parameters": [
+          {
+            "name": "includeHistory",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false
+            },
+            "description": "true pour ajouter populationHistory ; false ou absent pour retourner uniquement la dernière population vérifiée."
+          }
+        ]
+      }
+    },
+    "/sous-prefectures/search": {
+      "get": {
+        "summary": "Chercher une sous-préfecture par nom",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Nom de la sous-préfecture"
+          },
+          {
+            "name": "includeHistory",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false
+            },
+            "description": "true pour ajouter populationHistory ; false ou absent pour retourner uniquement la dernière population vérifiée."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Détails de la sous-préfecture",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SousPrefecture"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Sous-préfecture non trouvée"
+          },
+          "400": {
+            "description": "Paramètre name manquant ou invalide"
+          }
+        }
+      }
+    },
+    "/communes": {
+      "get": {
+        "summary": "Liste des communes",
+        "responses": {
+          "200": {
+            "description": "Retourne toutes les communes.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Commune"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Paramètre invalide"
           }
         },
-        "Commune": {
-          "type": "object",
-          "properties": {
-            "name": { "type": "string" },
-            "population": { "type": "integer" },
-            "region": { "type": "object", "properties": { "name": { "type": "string" } } }
+        "parameters": [
+          {
+            "name": "includeHistory",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false
+            },
+            "description": "true pour ajouter populationHistory ; false ou absent pour retourner uniquement la dernière population vérifiée."
+          }
+        ]
+      }
+    },
+    "/communes/search": {
+      "get": {
+        "summary": "Chercher une commune par nom",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Nom de la commune"
+          },
+          {
+            "name": "includeHistory",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false
+            },
+            "description": "true pour ajouter populationHistory ; false ou absent pour retourner uniquement la dernière population vérifiée."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Détails de la commune",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Commune"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Commune non trouvée"
+          },
+          "400": {
+            "description": "Paramètre name manquant ou invalide"
+          }
+        }
+      }
+    },
+    "/quartiers": {
+      "get": {
+        "summary": "Liste des quartiers",
+        "responses": {
+          "200": {
+            "description": "Retourne toutes les quartiers.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Quartier"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Paramètre invalide"
           }
         },
-        "Quartier": {
-          "type": "object",
-          "properties": {
-            "name": { "type": "string" },
-            "population": { "type": "integer" },
-            "commune": { "type": "object", "properties": { "name": { "type": "string" } } }
+        "parameters": [
+          {
+            "name": "includeHistory",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false
+            },
+            "description": "true pour ajouter populationHistory ; false ou absent pour retourner uniquement la dernière population vérifiée."
+          }
+        ]
+      }
+    },
+    "/quartiers/search": {
+      "get": {
+        "summary": "Chercher une quartier par nom",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Nom de la quartier"
+          },
+          {
+            "name": "includeHistory",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false
+            },
+            "description": "true pour ajouter populationHistory ; false ou absent pour retourner uniquement la dernière population vérifiée."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Détails de la quartier",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Quartier"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Quartier non trouvée"
+          },
+          "400": {
+            "description": "Paramètre name manquant ou invalide"
+          }
+        }
+      }
+    },
+    "/regions/stats": {
+      "get": {
+        "summary": "Statistiques des regions",
+        "responses": {
+          "200": {
+            "description": "Couverture des dernières populations vérifiées : verified, matchingCurrentBoundaries, total, referenceYear et complete. totalPopulation et le classement restent null tant que la couverture, l’année ou le périmètre actuel sont incompatibles."
+          }
+        }
+      }
+    },
+    "/prefectures/stats": {
+      "get": {
+        "summary": "Statistiques des prefectures",
+        "responses": {
+          "200": {
+            "description": "Couverture des dernières populations vérifiées : verified, matchingCurrentBoundaries, total, referenceYear et complete. totalPopulation et le classement restent null tant que la couverture, l’année ou le périmètre actuel sont incompatibles."
+          }
+        }
+      }
+    },
+    "/regions/{name}/prefectures": {
+      "get": {
+        "summary": "Préfectures d’une région",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "includeHistory",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false
+            },
+            "description": "true pour ajouter populationHistory ; false ou absent pour retourner uniquement la dernière population vérifiée."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Préfectures actives rattachées à la région. Les rattachements pending sont exclus ; leur ancien parent reste consultable dans la liste générale.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Prefecture"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Région ou préfectures introuvables"
+          },
+          "400": {
+            "description": "Paramètre invalide"
+          }
+        }
+      }
+    },
+    "/data-sources": {
+      "get": {
+        "summary": "Sources vérifiées et limites de la mise à jour administrative",
+        "responses": {
+          "200": {
+            "description": "Référentiel des décrets, communes et limites connues"
+          }
+        }
+      }
+    },
+    "/populations/rgph4-2025": {
+      "get": {
+        "summary": "Populations officielles du RGPH-4, référence territoriale 2025",
+        "description": "Résultats préliminaires : 8 régions au périmètre du recensement, 33 préfectures, 13 communes de Conakry et total national. Ce référentiel ne représente pas les périmètres créés en août 2026.",
+        "responses": {
+          "200": {
+            "description": "Référentiel sourcé, pages du rapport INS, contrôles et limites"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Region": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "zone": {
+            "type": "string"
+          },
+          "population": {
+            "type": "integer",
+            "nullable": true,
+            "minimum": 0,
+            "description": "Dernière population vérifiée et datée. null en l’absence d’observation fiable ; aucune valeur héritée non vérifiée n’est utilisée."
+          },
+          "area": {
+            "type": "number"
+          },
+          "administrativeStatus": {
+            "type": "string",
+            "enum": [
+              "active",
+              "historical"
+            ],
+            "description": "Les listes publiques excluent les anciens enregistrements historisés."
+          },
+          "administrativeType": {
+            "type": "string",
+            "description": "Conakry est représentée comme zone spéciale."
+          },
+          "effectiveFrom": {
+            "type": "string",
+            "format": "date",
+            "description": "Date de création documentée ; absente si non vérifiée."
+          },
+          "reviewedAt": {
+            "type": "string",
+            "format": "date"
+          },
+          "parentStatus": {
+            "type": "string",
+            "enum": [
+              "verified",
+              "legacy-unverified",
+              "pending"
+            ],
+            "description": "pending : la relation conservée est un ancien rattachement à confirmer."
+          },
+          "metricsStatus": {
+            "type": "string",
+            "enum": [
+              "verified",
+              "legacy-unverified",
+              "unavailable"
+            ],
+            "description": "Statut des valeurs héritées stockées, notamment la superficie. Le statut de population renvoyé est décrit séparément par populationStatus."
+          },
+          "notes": {
+            "type": "string"
+          },
+          "sources": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string"
+                },
+                "url": {
+                  "type": "string",
+                  "format": "uri"
+                },
+                "publishedAt": {
+                  "type": "string",
+                  "format": "date"
+                }
+              }
+            }
+          },
+          "populationReferenceYear": {
+            "type": "integer",
+            "nullable": true,
+            "description": "Année de référence de la population sélectionnée, pas l’année de publication."
+          },
+          "populationStatus": {
+            "type": "string",
+            "enum": [
+              "preliminary",
+              "final",
+              "unavailable"
+            ]
+          },
+          "populationGeographicReference": {
+            "type": "string",
+            "nullable": true,
+            "description": "Périmètre de référence de la population ; peut précéder le découpage actuel."
+          },
+          "populationBoundaryCompatibility": {
+            "type": "string",
+            "nullable": true,
+            "enum": [
+              "not-assessed",
+              "verified",
+              null
+            ]
+          },
+          "populationSource": {
+            "type": "object",
+            "nullable": true,
+            "properties": {
+              "publisher": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string",
+                "format": "uri"
+              },
+              "publishedAt": {
+                "type": "string",
+                "format": "date"
+              },
+              "sha256": {
+                "type": "string"
+              },
+              "pdfPage": {
+                "type": "integer",
+                "nullable": true
+              },
+              "printedPage": {
+                "type": "integer",
+                "nullable": true
+              }
+            }
+          },
+          "populationHistory": {
+            "type": "object",
+            "description": "Présent uniquement avec includeHistory=true. Les anciennes valeurs ne remplacent jamais le champ population principal.",
+            "properties": {
+              "legacy": {
+                "type": "object",
+                "nullable": true,
+                "properties": {
+                  "population": {
+                    "type": "integer"
+                  },
+                  "referenceYear": {
+                    "type": "integer",
+                    "nullable": true
+                  },
+                  "status": {
+                    "type": "string"
+                  }
+                }
+              },
+              "observations": {
+                "type": "array",
+                "description": "Observations datées distinctes du champ population hérité. Une observation RGPH-4 2025 ne valide pas une population au périmètre administratif de 2026.",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "referenceId": {
+                      "type": "string"
+                    },
+                    "year": {
+                      "type": "integer",
+                      "example": 2025
+                    },
+                    "publicationStatus": {
+                      "type": "string",
+                      "enum": [
+                        "preliminary",
+                        "final"
+                      ]
+                    },
+                    "population": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "male": {
+                      "type": "integer"
+                    },
+                    "female": {
+                      "type": "integer"
+                    },
+                    "geographicReference": {
+                      "type": "string"
+                    },
+                    "boundaryCompatibility": {
+                      "type": "string",
+                      "enum": [
+                        "not-assessed",
+                        "verified"
+                      ]
+                    },
+                    "regionAtCensus": {
+                      "type": "string"
+                    },
+                    "sourcePdfPage": {
+                      "type": "integer"
+                    },
+                    "sourcePrintedPage": {
+                      "type": "integer"
+                    },
+                    "reviewedAt": {
+                      "type": "string",
+                      "format": "date"
+                    },
+                    "source": {
+                      "type": "object",
+                      "properties": {
+                        "publisher": {
+                          "type": "string"
+                        },
+                        "title": {
+                          "type": "string"
+                        },
+                        "url": {
+                          "type": "string",
+                          "format": "uri"
+                        },
+                        "publishedAt": {
+                          "type": "string",
+                          "format": "date"
+                        },
+                        "sha256": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "verificationStatus": {
+                      "type": "string",
+                      "enum": [
+                        "verified",
+                        "unverified"
+                      ],
+                      "description": "Requis pour sélectionner une observation d’un futur référentiel non enregistré."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "Prefecture": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "population": {
+            "type": "integer",
+            "nullable": true,
+            "minimum": 0,
+            "description": "Dernière population vérifiée et datée. null en l’absence d’observation fiable ; aucune valeur héritée non vérifiée n’est utilisée."
+          },
+          "area": {
+            "type": "number"
+          },
+          "region": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              }
+            }
+          },
+          "administrativeStatus": {
+            "type": "string",
+            "enum": [
+              "active",
+              "historical"
+            ],
+            "description": "Les listes publiques excluent les anciens enregistrements historisés."
+          },
+          "administrativeType": {
+            "type": "string",
+            "description": "Conakry est représentée comme zone spéciale."
+          },
+          "effectiveFrom": {
+            "type": "string",
+            "format": "date",
+            "description": "Date de création documentée ; absente si non vérifiée."
+          },
+          "reviewedAt": {
+            "type": "string",
+            "format": "date"
+          },
+          "parentStatus": {
+            "type": "string",
+            "enum": [
+              "verified",
+              "legacy-unverified",
+              "pending"
+            ],
+            "description": "pending : la relation conservée est un ancien rattachement à confirmer."
+          },
+          "metricsStatus": {
+            "type": "string",
+            "enum": [
+              "verified",
+              "legacy-unverified",
+              "unavailable"
+            ],
+            "description": "Statut des valeurs héritées stockées, notamment la superficie. Le statut de population renvoyé est décrit séparément par populationStatus."
+          },
+          "notes": {
+            "type": "string"
+          },
+          "sources": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string"
+                },
+                "url": {
+                  "type": "string",
+                  "format": "uri"
+                },
+                "publishedAt": {
+                  "type": "string",
+                  "format": "date"
+                }
+              }
+            }
+          },
+          "populationReferenceYear": {
+            "type": "integer",
+            "nullable": true,
+            "description": "Année de référence de la population sélectionnée, pas l’année de publication."
+          },
+          "populationStatus": {
+            "type": "string",
+            "enum": [
+              "preliminary",
+              "final",
+              "unavailable"
+            ]
+          },
+          "populationGeographicReference": {
+            "type": "string",
+            "nullable": true,
+            "description": "Périmètre de référence de la population ; peut précéder le découpage actuel."
+          },
+          "populationBoundaryCompatibility": {
+            "type": "string",
+            "nullable": true,
+            "enum": [
+              "not-assessed",
+              "verified",
+              null
+            ]
+          },
+          "populationSource": {
+            "type": "object",
+            "nullable": true,
+            "properties": {
+              "publisher": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string",
+                "format": "uri"
+              },
+              "publishedAt": {
+                "type": "string",
+                "format": "date"
+              },
+              "sha256": {
+                "type": "string"
+              },
+              "pdfPage": {
+                "type": "integer",
+                "nullable": true
+              },
+              "printedPage": {
+                "type": "integer",
+                "nullable": true
+              }
+            }
+          },
+          "populationHistory": {
+            "type": "object",
+            "description": "Présent uniquement avec includeHistory=true. Les anciennes valeurs ne remplacent jamais le champ population principal.",
+            "properties": {
+              "legacy": {
+                "type": "object",
+                "nullable": true,
+                "properties": {
+                  "population": {
+                    "type": "integer"
+                  },
+                  "referenceYear": {
+                    "type": "integer",
+                    "nullable": true
+                  },
+                  "status": {
+                    "type": "string"
+                  }
+                }
+              },
+              "observations": {
+                "type": "array",
+                "description": "Observations datées distinctes du champ population hérité. Une observation RGPH-4 2025 ne valide pas une population au périmètre administratif de 2026.",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "referenceId": {
+                      "type": "string"
+                    },
+                    "year": {
+                      "type": "integer",
+                      "example": 2025
+                    },
+                    "publicationStatus": {
+                      "type": "string",
+                      "enum": [
+                        "preliminary",
+                        "final"
+                      ]
+                    },
+                    "population": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "male": {
+                      "type": "integer"
+                    },
+                    "female": {
+                      "type": "integer"
+                    },
+                    "geographicReference": {
+                      "type": "string"
+                    },
+                    "boundaryCompatibility": {
+                      "type": "string",
+                      "enum": [
+                        "not-assessed",
+                        "verified"
+                      ]
+                    },
+                    "regionAtCensus": {
+                      "type": "string"
+                    },
+                    "sourcePdfPage": {
+                      "type": "integer"
+                    },
+                    "sourcePrintedPage": {
+                      "type": "integer"
+                    },
+                    "reviewedAt": {
+                      "type": "string",
+                      "format": "date"
+                    },
+                    "source": {
+                      "type": "object",
+                      "properties": {
+                        "publisher": {
+                          "type": "string"
+                        },
+                        "title": {
+                          "type": "string"
+                        },
+                        "url": {
+                          "type": "string",
+                          "format": "uri"
+                        },
+                        "publishedAt": {
+                          "type": "string",
+                          "format": "date"
+                        },
+                        "sha256": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "verificationStatus": {
+                      "type": "string",
+                      "enum": [
+                        "verified",
+                        "unverified"
+                      ],
+                      "description": "Requis pour sélectionner une observation d’un futur référentiel non enregistré."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "SousPrefecture": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "population": {
+            "type": "integer",
+            "nullable": true,
+            "minimum": 0,
+            "description": "Dernière population vérifiée et datée. null en l’absence d’observation fiable ; aucune valeur héritée non vérifiée n’est utilisée."
+          },
+          "prefecture": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              }
+            }
+          },
+          "administrativeStatus": {
+            "type": "string",
+            "enum": [
+              "active",
+              "historical"
+            ],
+            "description": "Les listes publiques excluent les anciens enregistrements historisés."
+          },
+          "administrativeType": {
+            "type": "string",
+            "description": "Conakry est représentée comme zone spéciale."
+          },
+          "effectiveFrom": {
+            "type": "string",
+            "format": "date",
+            "description": "Date de création documentée ; absente si non vérifiée."
+          },
+          "reviewedAt": {
+            "type": "string",
+            "format": "date"
+          },
+          "parentStatus": {
+            "type": "string",
+            "enum": [
+              "verified",
+              "legacy-unverified",
+              "pending"
+            ],
+            "description": "pending : la relation conservée est un ancien rattachement à confirmer."
+          },
+          "metricsStatus": {
+            "type": "string",
+            "enum": [
+              "verified",
+              "legacy-unverified",
+              "unavailable"
+            ],
+            "description": "Statut des valeurs héritées stockées, notamment la superficie. Le statut de population renvoyé est décrit séparément par populationStatus."
+          },
+          "notes": {
+            "type": "string"
+          },
+          "sources": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string"
+                },
+                "url": {
+                  "type": "string",
+                  "format": "uri"
+                },
+                "publishedAt": {
+                  "type": "string",
+                  "format": "date"
+                }
+              }
+            }
+          },
+          "populationReferenceYear": {
+            "type": "integer",
+            "nullable": true,
+            "description": "Année de référence de la population sélectionnée, pas l’année de publication."
+          },
+          "populationStatus": {
+            "type": "string",
+            "enum": [
+              "preliminary",
+              "final",
+              "unavailable"
+            ]
+          },
+          "populationGeographicReference": {
+            "type": "string",
+            "nullable": true,
+            "description": "Périmètre de référence de la population ; peut précéder le découpage actuel."
+          },
+          "populationBoundaryCompatibility": {
+            "type": "string",
+            "nullable": true,
+            "enum": [
+              "not-assessed",
+              "verified",
+              null
+            ]
+          },
+          "populationSource": {
+            "type": "object",
+            "nullable": true,
+            "properties": {
+              "publisher": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string",
+                "format": "uri"
+              },
+              "publishedAt": {
+                "type": "string",
+                "format": "date"
+              },
+              "sha256": {
+                "type": "string"
+              },
+              "pdfPage": {
+                "type": "integer",
+                "nullable": true
+              },
+              "printedPage": {
+                "type": "integer",
+                "nullable": true
+              }
+            }
+          },
+          "populationHistory": {
+            "type": "object",
+            "description": "Présent uniquement avec includeHistory=true. Les anciennes valeurs ne remplacent jamais le champ population principal.",
+            "properties": {
+              "legacy": {
+                "type": "object",
+                "nullable": true,
+                "properties": {
+                  "population": {
+                    "type": "integer"
+                  },
+                  "referenceYear": {
+                    "type": "integer",
+                    "nullable": true
+                  },
+                  "status": {
+                    "type": "string"
+                  }
+                }
+              },
+              "observations": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      },
+      "Commune": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "population": {
+            "type": "integer",
+            "nullable": true,
+            "minimum": 0,
+            "description": "Dernière population vérifiée et datée. null en l’absence d’observation fiable ; aucune valeur héritée non vérifiée n’est utilisée."
+          },
+          "region": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              }
+            }
+          },
+          "administrativeStatus": {
+            "type": "string",
+            "enum": [
+              "active",
+              "historical"
+            ],
+            "description": "Les listes publiques excluent les anciens enregistrements historisés."
+          },
+          "administrativeType": {
+            "type": "string",
+            "description": "Conakry est représentée comme zone spéciale."
+          },
+          "effectiveFrom": {
+            "type": "string",
+            "format": "date",
+            "description": "Date de création documentée ; absente si non vérifiée."
+          },
+          "reviewedAt": {
+            "type": "string",
+            "format": "date"
+          },
+          "parentStatus": {
+            "type": "string",
+            "enum": [
+              "verified",
+              "legacy-unverified",
+              "pending"
+            ],
+            "description": "pending : la relation conservée est un ancien rattachement à confirmer."
+          },
+          "metricsStatus": {
+            "type": "string",
+            "enum": [
+              "verified",
+              "legacy-unverified",
+              "unavailable"
+            ],
+            "description": "Statut des valeurs héritées stockées, notamment la superficie. Le statut de population renvoyé est décrit séparément par populationStatus."
+          },
+          "notes": {
+            "type": "string"
+          },
+          "sources": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string"
+                },
+                "url": {
+                  "type": "string",
+                  "format": "uri"
+                },
+                "publishedAt": {
+                  "type": "string",
+                  "format": "date"
+                }
+              }
+            }
+          },
+          "populationReferenceYear": {
+            "type": "integer",
+            "nullable": true,
+            "description": "Année de référence de la population sélectionnée, pas l’année de publication."
+          },
+          "populationStatus": {
+            "type": "string",
+            "enum": [
+              "preliminary",
+              "final",
+              "unavailable"
+            ]
+          },
+          "populationGeographicReference": {
+            "type": "string",
+            "nullable": true,
+            "description": "Périmètre de référence de la population ; peut précéder le découpage actuel."
+          },
+          "populationBoundaryCompatibility": {
+            "type": "string",
+            "nullable": true,
+            "enum": [
+              "not-assessed",
+              "verified",
+              null
+            ]
+          },
+          "populationSource": {
+            "type": "object",
+            "nullable": true,
+            "properties": {
+              "publisher": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string",
+                "format": "uri"
+              },
+              "publishedAt": {
+                "type": "string",
+                "format": "date"
+              },
+              "sha256": {
+                "type": "string"
+              },
+              "pdfPage": {
+                "type": "integer",
+                "nullable": true
+              },
+              "printedPage": {
+                "type": "integer",
+                "nullable": true
+              }
+            }
+          },
+          "populationHistory": {
+            "type": "object",
+            "description": "Présent uniquement avec includeHistory=true. Les anciennes valeurs ne remplacent jamais le champ population principal.",
+            "properties": {
+              "legacy": {
+                "type": "object",
+                "nullable": true,
+                "properties": {
+                  "population": {
+                    "type": "integer"
+                  },
+                  "referenceYear": {
+                    "type": "integer",
+                    "nullable": true
+                  },
+                  "status": {
+                    "type": "string"
+                  }
+                }
+              },
+              "observations": {
+                "type": "array",
+                "description": "Observations datées distinctes du champ population hérité. Une observation RGPH-4 2025 ne valide pas une population au périmètre administratif de 2026.",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "referenceId": {
+                      "type": "string"
+                    },
+                    "year": {
+                      "type": "integer",
+                      "example": 2025
+                    },
+                    "publicationStatus": {
+                      "type": "string",
+                      "enum": [
+                        "preliminary",
+                        "final"
+                      ]
+                    },
+                    "population": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "male": {
+                      "type": "integer"
+                    },
+                    "female": {
+                      "type": "integer"
+                    },
+                    "geographicReference": {
+                      "type": "string"
+                    },
+                    "boundaryCompatibility": {
+                      "type": "string",
+                      "enum": [
+                        "not-assessed",
+                        "verified"
+                      ]
+                    },
+                    "regionAtCensus": {
+                      "type": "string"
+                    },
+                    "sourcePdfPage": {
+                      "type": "integer"
+                    },
+                    "sourcePrintedPage": {
+                      "type": "integer"
+                    },
+                    "reviewedAt": {
+                      "type": "string",
+                      "format": "date"
+                    },
+                    "source": {
+                      "type": "object",
+                      "properties": {
+                        "publisher": {
+                          "type": "string"
+                        },
+                        "title": {
+                          "type": "string"
+                        },
+                        "url": {
+                          "type": "string",
+                          "format": "uri"
+                        },
+                        "publishedAt": {
+                          "type": "string",
+                          "format": "date"
+                        },
+                        "sha256": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "verificationStatus": {
+                      "type": "string",
+                      "enum": [
+                        "verified",
+                        "unverified"
+                      ],
+                      "description": "Requis pour sélectionner une observation d’un futur référentiel non enregistré."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "Quartier": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "population": {
+            "type": "integer",
+            "nullable": true,
+            "minimum": 0,
+            "description": "Dernière population vérifiée et datée. null en l’absence d’observation fiable ; aucune valeur héritée non vérifiée n’est utilisée."
+          },
+          "commune": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              }
+            }
+          },
+          "administrativeStatus": {
+            "type": "string",
+            "enum": [
+              "active",
+              "historical"
+            ],
+            "description": "Les listes publiques excluent les anciens enregistrements historisés."
+          },
+          "administrativeType": {
+            "type": "string",
+            "description": "Conakry est représentée comme zone spéciale."
+          },
+          "effectiveFrom": {
+            "type": "string",
+            "format": "date",
+            "description": "Date de création documentée ; absente si non vérifiée."
+          },
+          "reviewedAt": {
+            "type": "string",
+            "format": "date"
+          },
+          "parentStatus": {
+            "type": "string",
+            "enum": [
+              "verified",
+              "legacy-unverified",
+              "pending"
+            ],
+            "description": "pending : la relation conservée est un ancien rattachement à confirmer."
+          },
+          "metricsStatus": {
+            "type": "string",
+            "enum": [
+              "verified",
+              "legacy-unverified",
+              "unavailable"
+            ],
+            "description": "Statut des valeurs héritées stockées, notamment la superficie. Le statut de population renvoyé est décrit séparément par populationStatus."
+          },
+          "notes": {
+            "type": "string"
+          },
+          "sources": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string"
+                },
+                "url": {
+                  "type": "string",
+                  "format": "uri"
+                },
+                "publishedAt": {
+                  "type": "string",
+                  "format": "date"
+                }
+              }
+            }
+          },
+          "populationReferenceYear": {
+            "type": "integer",
+            "nullable": true,
+            "description": "Année de référence de la population sélectionnée, pas l’année de publication."
+          },
+          "populationStatus": {
+            "type": "string",
+            "enum": [
+              "preliminary",
+              "final",
+              "unavailable"
+            ]
+          },
+          "populationGeographicReference": {
+            "type": "string",
+            "nullable": true,
+            "description": "Périmètre de référence de la population ; peut précéder le découpage actuel."
+          },
+          "populationBoundaryCompatibility": {
+            "type": "string",
+            "nullable": true,
+            "enum": [
+              "not-assessed",
+              "verified",
+              null
+            ]
+          },
+          "populationSource": {
+            "type": "object",
+            "nullable": true,
+            "properties": {
+              "publisher": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string",
+                "format": "uri"
+              },
+              "publishedAt": {
+                "type": "string",
+                "format": "date"
+              },
+              "sha256": {
+                "type": "string"
+              },
+              "pdfPage": {
+                "type": "integer",
+                "nullable": true
+              },
+              "printedPage": {
+                "type": "integer",
+                "nullable": true
+              }
+            }
+          },
+          "populationHistory": {
+            "type": "object",
+            "description": "Présent uniquement avec includeHistory=true. Les anciennes valeurs ne remplacent jamais le champ population principal.",
+            "properties": {
+              "legacy": {
+                "type": "object",
+                "nullable": true,
+                "properties": {
+                  "population": {
+                    "type": "integer"
+                  },
+                  "referenceYear": {
+                    "type": "integer",
+                    "nullable": true
+                  },
+                  "status": {
+                    "type": "string"
+                  }
+                }
+              },
+              "observations": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              }
+            }
           }
         }
       }
     }
   }
-  
+}

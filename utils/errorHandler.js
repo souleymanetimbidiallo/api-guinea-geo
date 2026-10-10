@@ -1,7 +1,10 @@
 module.exports = (err, req, res, next) => {
-    console.error(err.stack);
-    res.status(err.status || 500).json({
-      message: err.message || 'Erreur serveur',
-      code: err.status || 500
-    });
+  if (res.headersSent) return next(err);
+  const status = Number(err.status || err.statusCode) || 500;
+  const code = status >= 400 && status <= 599 ? status : 500;
+  console.error(`Erreur HTTP ${code} : ${err.code || err.name}`);
+  res.status(code).json({
+    message: code >= 500 ? 'Erreur serveur' : err.message || 'Requête invalide',
+    code
+  });
 };

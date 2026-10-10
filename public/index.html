@@ -1,122 +1,70 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>API Guinée Geo</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
-  
-  <!-- Leaflet CSS -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-
-</head>
-<body class="bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200 font-sans transition-colors duration-300">
-
-  <!-- En-tête -->
-  <header class="bg-green-600 text-white py-6 text-center shadow-md dark:bg-green-700">
-    <h1 class="text-4xl font-bold animate-pulse">🌍 API Guinée Geo 🚀</h1>
-    <p class="text-lg mt-2">Les données géographiques de la Guinée en accès libre 🇬🇳</p>
-  </header>
-
-  <!-- Contenu principal -->
-  <main class="container mx-auto px-4 py-12">
-    <div class="bg-white dark:bg-gray-800 shadow-xl rounded-lg p-8 max-w-2xl mx-auto">
-
-      <p class="mb-6">
-        Bienvenue sur l'<strong>API Guinée Geo</strong>, une API gratuite et ouverte recensant toutes les informations géographiques de la République de Guinée.
-      </p>
-
-      <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-100">🔗 Routes rapides :</h2>
-      <ul class="mt-4 text-gray-600 dark:text-gray-300 space-y-2">
-        <li>📍 <a href="/regions" class="text-green-700 dark:text-green-400 underline"><code>/regions</code></a> : Afficher toutes les régions</li>
-        <li>🏙️ <a href="/communes" class="text-green-700 dark:text-green-400 underline"><code>/communes</code></a> : Afficher toutes les communes</li>
-        <li>📌 <a href="/quartiers" class="text-green-700 dark:text-green-400 underline"><code>/quartiers</code></a> : Afficher tous les quartiers</li>
-        <li>🗺️ <a href="/prefectures" class="text-green-700 dark:text-green-400 underline"><code>/prefectures</code></a> : Afficher toutes les préfectures</li>
-        <li>🛣️ <a href="/sous-prefectures" class="text-green-700 dark:text-green-400 underline"><code>/sous-prefectures</code></a> : Afficher toutes les sous-préfectures</li>
-      </ul>
-
-      <!-- Documentation -->
-      <div class="mt-8 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg p-6">
-        <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-4">📘 Documentation de l’API</h2>
-
-        <p class="text-sm mb-4">Toutes les routes renvoient des données au format JSON :</p>
-
-        <ul class="space-y-4 text-sm">
-          <li><span class="font-semibold text-green-600">GET</span> <a href="/regions" target="_blank" class="bg-gray-200 dark:bg-gray-600 px-2 py-1 rounded ml-2 text-blue-700 dark:text-blue-300 underline">/regions</a> – Liste des régions</li>
-          <li><span class="font-semibold text-green-600">GET</span> <a href="/regions/search?name=Labé" target="_blank" class="bg-gray-200 dark:bg-gray-600 px-2 py-1 rounded ml-2 text-blue-700 dark:text-blue-300 underline">/regions/search?name=Labé</a> – Rechercher une région</li>
-          <li><span class="font-semibold text-green-600">GET</span> <a href="/prefectures" target="_blank" class="bg-gray-200 dark:bg-gray-600 px-2 py-1 rounded ml-2 text-blue-700 dark:text-blue-300 underline">/prefectures</a> – Liste des préfectures</li>
-          <li><span class="font-semibold text-green-600">GET</span> <a href="/prefectures/search?name=Kindia" target="_blank" class="bg-gray-200 dark:bg-gray-600 px-2 py-1 rounded ml-2 text-blue-700 dark:text-blue-300 underline">/prefectures/search?name=Kindia</a> – Rechercher une préfecture</li>
-          <li><span class="font-semibold text-green-600">GET</span> <a href="/communes" target="_blank" class="bg-gray-200 dark:bg-gray-600 px-2 py-1 rounded ml-2 text-blue-700 dark:text-blue-300 underline">/communes</a> – Liste des communes</li>
-          <li><span class="font-semibold text-green-600">GET</span> <a href="/communes/search?name=Matoto" target="_blank" class="bg-gray-200 dark:bg-gray-600 px-2 py-1 rounded ml-2 text-blue-700 dark:text-blue-300 underline">/communes/search?name=Matoto</a> – Rechercher une commune</li>
-          <li><span class="font-semibold text-green-600">GET</span> <a href="/sous-prefectures" target="_blank" class="bg-gray-200 dark:bg-gray-600 px-2 py-1 rounded ml-2 text-blue-700 dark:text-blue-300 underline">/sous-prefectures</a> – Liste des sous-préfectures</li>
-          <li><span class="font-semibold text-green-600">GET</span> <a href="/sous-prefectures/search?name=Koulé" target="_blank" class="bg-gray-200 dark:bg-gray-600 px-2 py-1 rounded ml-2 text-blue-700 dark:text-blue-300 underline">/sous-prefectures/search?name=Koulé</a> – Rechercher une sous-préfecture</li>
-          <li><span class="font-semibold text-green-600">GET</span> <a href="/quartiers" target="_blank" class="bg-gray-200 dark:bg-gray-600 px-2 py-1 rounded ml-2 text-blue-700 dark:text-blue-300 underline">/quartiers</a> – Liste des quartiers</li>
-          <li><span class="font-semibold text-green-600">GET</span> <a href="/quartiers/search?name=Almamya" target="_blank" class="bg-gray-200 dark:bg-gray-600 px-2 py-1 rounded ml-2 text-blue-700 dark:text-blue-300 underline">/quartiers/search?name=Almamya</a> – Rechercher un quartier</li>
-        </ul>
-
-        <p class="text-xs text-gray-500 mt-4">💡 Tous les résultats sont renvoyés au format JSON. Les recherches par nom retournent un objet ou une erreur 404.</p>
-      </div>
-
-      <!-- À propos -->
-      <div class="mt-10">
-        <h2 class="text-xl font-semibold mb-2 text-gray-800 dark:text-white">ℹ️ À propos</h2>
-        <p class="text-gray-600 dark:text-gray-300">
-          Cette API recense les subdivisions administratives officielles de la Guinée :
-          régions, préfectures, sous-préfectures, communes et quartiers.
-          Elle peut être utilisée pour des applications cartographiques, des projets open data, ou des analyses territoriales.
-        </p>
-      </div>
-
-      <div class="mt-12">
-        <h2 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">🗺️ Carte des régions de Guinée</h2>
-        <div id="map" class="h-96 w-full rounded shadow border dark:border-gray-600"></div>
-      </div>
-      
-
-      <!-- Pied de page -->
-      <div class="mt-10 border-t pt-6 text-sm text-gray-500 dark:border-gray-700 text-center">
-        <p>
-          Créé avec ❤️ par 
-          <a href="https://souleymanetimbidiallo.github.io/" target="_blank" class="text-green-600 dark:text-green-400 font-semibold hover:underline">
-            Souleymane Diallo
-          </a>
-        </p>
-        <p class="mt-2">
-          📦 <a href="https://github.com/souleymanetimbidiallo/api-guinea-geo" class="underline hover:text-green-600 dark:hover:text-green-400">Voir le projet sur GitHub</a>
-        </p>
-      </div>
-    </div>
-  </main>
-  
-  <!-- Leaflet JS -->
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Explorez les données territoriales de la Guinée. Une API ouverte pour les régions, préfectures et subdivisions administratives.">
+  <meta name="theme-color" content="#173f35">
+  <title>API Guinée Geo — Le territoire, accessible.</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
+  <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="/styles.css">
   <script>
-    const map = L.map('map').setView([10.5, -10.8], 6); // Centré sur la Guinée
-  
-    L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-      maxZoom: 18,
-    }).addTo(map);
-  
-    // Exemple de régions avec coordonnées approximatives
-    const regions = [
-      { name: 'Conakry', coords: [9.5092, -13.7122] },
-      { name: 'Labé', coords: [11.3181, -12.2915] },
-      { name: 'Kindia', coords: [10.062, -12.871] },
-      { name: 'Boké', coords: [10.94, -14.3] },
-      { name: 'Nzérékoré', coords: [7.75, -8.83] },
-      { name: 'Kankan', coords: [10.39, -9.31] },
-      { name: 'Mamou', coords: [10.38, -12.08] },
-      { name: 'Faranah', coords: [10.05, -10.74] }
-    ];
-  
-    regions.forEach(region => {
-      L.marker(region.coords)
-        .addTo(map)
-        .bindPopup(`<strong>${region.name}</strong><br><a href="/regions/search?name=${region.name}" class="underline">Voir dans l'API</a>`);
-    });
+    // Appliquer le thème avant le premier affichage pour éviter un flash lumineux.
+    (() => {
+      let saved;
+      try { saved = localStorage.getItem('guinea-geo-theme'); } catch {}
+      const theme = saved === 'dark' || saved === 'light' ? saved :
+        (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.dataset.theme = theme;
+    })();
   </script>
-  
-
+  <script defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script defer src="/home.js"></script>
+  <script defer src="/explorer.js"></script>
+</head>
+<body>
+  <a class="skip" href="#main">Aller au contenu</a>
+  <header class="nav shell">
+    <a class="brand" href="/" aria-label="Guinée Geo, accueil"><span class="brand-mark" aria-hidden="true">g<span>•</span></span><span>guinée<span class="brand-light">geo</span><small>RÉPUBLIQUE DE GUINÉE</small></span></a>
+    <nav aria-label="Navigation principale"><button id="theme-toggle" class="theme-toggle" type="button" aria-label="Activer le thème sombre" aria-pressed="false"><span id="theme-icon" aria-hidden="true">☾</span><span class="theme-label">Thème sombre</span></button><a href="#explorer">Explorer</a><a href="#api">L’API</a><a class="nav-doc" href="/api-docs/">Documentation <span aria-hidden="true">↗</span></a></nav>
+  </header>
+  <main id="main">
+    <section class="hero shell">
+      <div class="hero-copy"><p class="eyebrow"><span class="dot"></span> LES DONNÉES DU TERRITOIRE GUINÉEN</p><h1>La Guinée.<br>Un territoire,<br><em>mille possibilités.</em></h1><p class="intro">De Conakry à Nzérékoré, connectez vos idées aux données du territoire guinéen. Une interface simple pour explorer, comprendre et construire.</p><div class="hero-actions"><a class="button primary" href="#explorer">Explorer les données <span aria-hidden="true">↗</span></a><a class="text-link" href="/api-docs/">Lire la documentation <span aria-hidden="true">→</span></a></div><div class="hero-note"><span>01 /</span> Le territoire, accessible à tous.</div></div>
+      <div class="map-card"><div class="map-top"><span><span class="guinea-flag" role="img" aria-label="Drapeau de la Guinée"></span> RÉPUBLIQUE DE GUINÉE</span><span>CONAKRY · AFRIQUE DE L’OUEST</span></div><div id="map" role="region" aria-label="Carte interactive des régions de Guinée"></div><div class="map-fallback" id="map-fallback" hidden>La carte est indisponible. Les données restent accessibles ci-dessous.</div><div class="map-bottom"><div><strong>Une autre façon de voir<br>le territoire.</strong><span>Repères des chefs-lieux ; limites régionales non représentées.</span></div><span class="map-compass" aria-hidden="true">N<br>↑</span></div><span class="map-label"><span class="legend-point" aria-hidden="true"></span> CHEFS-LIEUX DES RÉGIONS <span class="map-credit">Contour : <a href="https://www.naturalearthdata.com/" target="_blank" rel="noopener noreferrer">Natural Earth</a></span></span></div>
+    </section>
+    <section class="data-strip shell" aria-label="Couverture de la base"><div class="strip-intro"><p class="eyebrow">LE TERRITOIRE EN DONNÉES</p><p>Une base ouverte.<br>Un point de départ.</p></div><div><strong data-count="regions">—</strong><span>Régions et zone spéciale</span></div><div><strong data-count="prefectures">—</strong><span>Préfectures</span></div><div><strong data-count="sous-prefectures">—</strong><span>Sous-préfectures</span></div><div class="strip-note"><span class="dot"></span><p id="data-status" aria-live="polite">Chargement de la couverture actuelle…</p></div></section>
+    <section id="explorer" class="explore shell"><div class="section-top"><div><p class="eyebrow">01 — EXPLORER</p><h2>À chaque échelle,<br><em>une nouvelle perspective.</em></h2></div><p>Parcourez les subdivisions du territoire.<br>Recherchez un lieu et découvrez ses subdivisions.</p></div><div class="resource-grid">
+      <a class="resource" href="/regions" data-category="regions"><span class="resource-number">01 <span aria-hidden="true">↗</span></span><span class="resource-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="m3 6 6-3 6 3 6-3v15l-6 3-6-3-6 3Z"/><path d="M9 3v15M15 6v15"/></svg></span><h3>Régions</h3><p>Une vue d’ensemble des grandes divisions du territoire.</p><code>GET /regions</code></a>
+      <a class="resource" href="/prefectures" data-category="prefectures"><span class="resource-number">02 <span aria-hidden="true">↗</span></span><span class="resource-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 10h18M10 3v18M10 16h11M16 10v11"/></svg></span><h3>Préfectures</h3><p>Explorez le territoire à l’échelle des préfectures.</p><code>GET /prefectures</code></a>
+      <a class="resource" href="/sous-prefectures" data-category="sous-prefectures"><span class="resource-number">03 <span aria-hidden="true">↗</span></span><span class="resource-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><path d="M12 7v5M5 17v-5h14v5"/></svg></span><h3>Sous-préfectures</h3><p>Découvrez les subdivisions rattachées aux préfectures.</p><code>GET /sous-prefectures</code></a>
+      <a class="resource compact" href="/communes" data-category="communes"><span class="resource-number">04 <span aria-hidden="true">↗</span></span><div class="compact-heading"><svg class="compact-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-5h6v5M9 8h1M14 8h1M9 12h1M14 12h1"/></svg><div><h3>Communes</h3><p>Les communes présentes dans la base.</p></div></div><span class="tag">Couverture partielle</span><code>GET /communes</code></a>
+      <a class="resource compact" href="/quartiers" data-category="quartiers"><span class="resource-number">05 <span aria-hidden="true">↗</span></span><div class="compact-heading"><svg class="compact-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="m3 11 4-4 4 4v9H3ZM13 11l4-4 4 4v9h-8M6 20v-5h2M16 20v-5h2M2 4h20"/></svg><div><h3>Quartiers</h3><p>Un premier aperçu à l’échelle locale.</p></div></div><span class="tag">Couverture partielle</span><code>GET /quartiers</code></a>
+    </div></section>
+    <section id="data-browser" class="browser shell" aria-labelledby="browser-title">
+      <div class="browser-heading"><div><p class="eyebrow">LE TERRITOIRE À PORTÉE DE MAIN</p><h2 id="browser-title">Explorez la Guinée.</h2></div><a class="browser-badge" href="/data-sources" target="_blank" rel="noopener noreferrer">Sources et limites · Réforme 2026 ↗</a></div>
+      <p class="census-intro">Les populations sourcées sont celles du RGPH-4 <strong>2025</strong>, avant la réforme territoriale de 2026. <a href="/populations/rgph4-2025" target="_blank" rel="noopener noreferrer">Consulter le référentiel du recensement ↗</a></p>
+      <form id="search-form" class="browser-controls" role="search">
+        <div><label for="data-category">Subdivision</label><select id="data-category"><option value="regions">Régions</option><option value="prefectures">Préfectures</option><option value="sous-prefectures">Sous-préfectures</option><option value="communes">Communes</option><option value="quartiers">Quartiers</option><option value="all">Tout le territoire</option></select></div>
+        <div class="search-field"><label for="data-search">Rechercher par nom</label><input id="data-search" type="search" placeholder="Kankan, Labé, Matoto…" autocomplete="off"></div>
+        <button class="button primary" type="submit">Rechercher <span aria-hidden="true">→</span></button>
+      </form>
+      <nav id="data-breadcrumb" class="data-breadcrumb" aria-label="Parcours territorial"></nav>
+      <div class="browser-toolbar"><p id="result-status" role="status">Chargement des régions…</p><div><button id="export-copy" class="small-button" type="button" disabled>Copier JSON</button><button id="export-download" class="small-button" type="button" disabled>Télécharger JSON ↓</button></div></div>
+      <p id="export-status" class="export-status" role="status"></p>
+      <p id="coverage-note" class="coverage-note" hidden>La couverture de cette subdivision est partielle. Un résultat absent ne signifie pas que le lieu n’existe pas.</p>
+      <div id="data-results" class="data-results" aria-busy="true"></div>
+      <div id="data-pagination" class="data-pagination"></div>
+      <noscript><p>Activez JavaScript pour utiliser l’explorateur. Les listes JSON restent accessibles via les liens ci-dessus.</p></noscript>
+    </section>
+    <dialog id="place-dialog" aria-labelledby="place-title"><div class="place-header"><p id="place-category" class="eyebrow"></p><button id="place-close" class="small-button" type="button" aria-label="Fermer la fiche">Fermer ×</button></div><h2 id="place-title"></h2><div id="place-details"></div><p class="place-note">Les populations RGPH-4 sont datées de 2025. Les anciennes valeurs et les statistiques actuelles non vérifiées restent signalées.</p><div id="place-relations"></div><div class="place-actions"><button id="place-copy" class="small-button" type="button">Copier JSON</button><button id="place-download" class="small-button" type="button">Télécharger JSON ↓</button><a id="place-api" class="text-link">Ouvrir dans l’API ↗</a></div><p id="place-status" role="status"></p></dialog>
+    <section class="api-section" id="api"><div class="shell api-layout"><div><p class="eyebrow">02 — CONSTRUIRE</p><h2>Votre prochaine idée.<br><em>Une requête suffit.</em></h2><p>Des réponses JSON pour vos cartes, vos outils et vos projets. Essayez une requête ici, puis retrouvez tous les endpoints dans la documentation.</p><a class="button light" href="/api-docs/">Consulter la documentation <span aria-hidden="true">↗</span></a><div class="api-features"><span>REST</span><span>JSON</span><span>Open source</span></div></div><div class="terminal"><div class="terminal-top"><span><i></i><i></i><i></i></span><span>UNE REQUÊTE, DES DONNÉES</span><button id="copy" type="button" aria-label="Copier la requête">Copier</button></div><div class="request"><label for="endpoint">GET</label><select id="endpoint"><option value="/regions/search?name=Kankan">/regions/search?name=Kankan</option><option value="/regions/stats">/regions/stats</option><option value="/prefectures/stats">/prefectures/stats</option><option value="/communes">/communes</option></select><button id="run" type="button" aria-label="Exécuter la requête">↗</button></div><div class="response-meta"><span>RÉPONSE</span><span id="response-status" aria-live="polite">Prêt à explorer</span></div><pre id="response" tabindex="0" aria-label="Réponse JSON">Sélectionnez une requête et cliquez sur la flèche pour afficher les données.</pre><p id="copy-status" class="copy-status" aria-live="polite"></p></div></div></section>
+    <section class="about shell"><p class="eyebrow">03 — UNE RESSOURCE COMMUNE</p><div><h2>Ouverte par nature.<br><em>Utile par vocation.</em></h2><div><p>Guinée Geo rend les données territoriales plus accessibles aux développeurs, aux chercheurs et aux curieux. Un projet open source, pensé pour être exploré et amélioré.</p><p class="data-limit">La couverture des communes et quartiers est partielle. Les créations administratives de 2026 sont sourcées. Les populations, superficies et certains rattachements restent à vérifier avant une utilisation analytique.</p><a class="text-link" href="https://github.com/souleymanetimbidiallo/api-guinea-geo" target="_blank" rel="noopener noreferrer">Découvrir le projet sur GitHub <span aria-hidden="true">↗</span></a></div></div></section>
+  </main>
+  <footer class="shell"><a class="footer-brand" href="/">guinée<span>geo</span><span class="dot"></span></a><p>Le territoire, accessible.</p><a href="https://souleymanetimbidiallo.github.io/" target="_blank" rel="noopener noreferrer">Créé par Souleymane Diallo <span aria-hidden="true">↗</span></a></footer>
 </body>
 </html>

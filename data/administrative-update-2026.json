@@ -1,0 +1,117 @@
+{
+  "id": "guinea-administration-2026-08-20-v1",
+  "reviewedAt": "2026-10-10",
+  "effectiveFrom": "2026-08-20",
+  "sources": {
+    "regions": {
+      "title": "SGG — Décret D/2026/0259/PRG/SGG",
+      "url": "https://sgg.gov.gn/document/downloadfile/584",
+      "publishedAt": "2026-08-20"
+    },
+    "prefectures": {
+      "title": "SGG — Décret D/2026/0258/PRG/SGG",
+      "url": "https://sgg.gov.gn/document/downloadfile/583",
+      "publishedAt": "2026-08-20"
+    },
+    "communes": {
+      "title": "DGE — Conseillers communaux élus, zone spéciale de Conakry, scrutin du 31 mai 2026",
+      "url": "https://www.dge.gov.gn/uploads/documents/1781875516973-CONAKRY.pdf",
+      "publishedAt": "2026-06-19"
+    },
+    "population": {
+      "title": "RGPH-4 2025 — Résultats préliminaires",
+      "url": "https://www.stat-guinee.org/images/Documents/Publications/INS/rapports_enquetes/RGPH-4/Resultats_preliminaires_rgph_4.pdf",
+      "publishedAt": "2026-02-25"
+    }
+  },
+  "regions": [
+    "Beyla",
+    "Siguiri"
+  ],
+  "prefectures": [
+    {
+      "name": "Kamsar",
+      "region": "Boké",
+      "previousPrefecture": "Boké",
+      "aliases": [
+        "Kamsar (urban)"
+      ]
+    },
+    {
+      "name": "Timbo",
+      "region": "Mamou",
+      "previousPrefecture": "Mamou"
+    },
+    {
+      "name": "Tokounou",
+      "region": "Kankan",
+      "previousPrefecture": "Kankan"
+    },
+    {
+      "name": "Dialakoro",
+      "region": "Kankan",
+      "previousPrefecture": "Mandiana"
+    },
+    {
+      "name": "Sabadou Baranama",
+      "region": "Kankan",
+      "previousPrefecture": "Kankan",
+      "aliases": [
+        "Sabadou-Baranama"
+      ]
+    },
+    {
+      "name": "Doko",
+      "region": "Siguiri",
+      "previousPrefecture": "Siguiri"
+    },
+    {
+      "name": "Siguirini",
+      "region": "Siguiri",
+      "previousPrefecture": "Siguiri"
+    },
+    {
+      "name": "Kintinian",
+      "region": "Siguiri",
+      "previousPrefecture": "Siguiri"
+    },
+    {
+      "name": "Sinko",
+      "region": "Beyla",
+      "previousPrefecture": "Beyla"
+    },
+    {
+      "name": "Kouankan",
+      "region": "Beyla",
+      "previousPrefecture": "Macenta"
+    },
+    {
+      "name": "Karala",
+      "region": "Beyla",
+      "previousPrefecture": "Beyla"
+    }
+  ],
+  "conakryCommunes": [
+    "Dixinn",
+    "Kaloum",
+    "Matam",
+    "Matoto",
+    "Ratoma",
+    "Gbessia",
+    "Lambanyi",
+    "Sonfonia",
+    "Tombolia",
+    "Kassa",
+    "Kagbélen",
+    "Sanoyah",
+    "Manéah"
+  ],
+  "limitations": [
+    "Les nouveaux périmètres, codes administratifs et rattachements des sous-préfectures doivent être complétés à partir des actes du MATD.",
+    "Les populations et superficies héritées sont conservées comme valeurs non vérifiées et ne décrivent pas nécessairement les périmètres de 2026.",
+    "Le recensement RGPH-4 de juillet 2025 précède la réforme du 20 août 2026 ; ses chiffres ne sont pas transférés automatiquement.",
+    "Les communes de l’intérieur et les quartiers ne sont pas couverts exhaustivement par cette mise à jour."
+  ],
+  "legacyMatchingNote": "previousPrefecture et aliases servent à identifier les enregistrements hérités par comparaison avec la base existante ; ils ne définissent pas les nouvelles limites territoriales.",
+  "populationReferenceEndpoint": "/populations/rgph4-2025"
+}

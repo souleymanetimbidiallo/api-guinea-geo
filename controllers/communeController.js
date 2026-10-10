@@ -1,3 +1,6 @@
+const { serializeRecord } = require('../utils/populationResponse');
+const { activeFilter } = require('../utils/administrativeData');
+const { escapeName } = require('../utils/searchName');
 const Commune = require('../models/CommuneModel');
 const Region = require('../models/regionModel');
 
@@ -6,7 +9,7 @@ exports.createCommune = async (req, res, next) => {
   try {
     const commune = new Commune(req.body);
     const saved = await commune.save();
-    res.status(201).json(saved);
+    res.status(201).json(serializeRecord(saved, { ...req.populationOptions, kind: 'communes' }));
   } catch (error) {
     next(error);
   }
@@ -15,10 +18,10 @@ exports.createCommune = async (req, res, next) => {
 // Obtenir toutes les communes
 exports.getAllCommunes = async (req, res, next) => {
   try {
-    const communes = await Commune.find()
+    const communes = await Commune.find(activeFilter)
       .select('-_id -__v')
       .populate('region', 'name -_id');
-    res.status(200).json(communes);
+    res.status(200).json(serializeRecord(communes, { ...req.populationOptions, kind: 'communes' }));
   } catch (error) {
     next(error);
   }
@@ -33,7 +36,7 @@ exports.getCommuneByName = async (req, res, next) => {
       return res.status(400).json({ message: "Veuillez fournir un nom avec ?name=..." });
     }
 
-    const commune = await Commune.findOne({ name: new RegExp(`^${name}$`, 'i') })
+    const commune = await Commune.findOne({ ...activeFilter, name: new RegExp(`^${escapeName(name)}$`, 'i') })
       .select('-_id -__v')
       .populate('region', 'name -_id');
 
@@ -41,7 +44,7 @@ exports.getCommuneByName = async (req, res, next) => {
       return res.status(404).json({ message: "Commune non trouvée", code: 404 });
     }
 
-    res.status(200).json(commune);
+    res.status(200).json(serializeRecord(commune, { ...req.populationOptions, kind: 'communes' }));
   } catch (error) {
     next(error);
   }

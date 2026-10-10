@@ -1,0 +1,16 @@
+.git
+.vercel
+node_modules
+.env
+.env.*
+.local
+.aws
+.agents
+.codex
+databases
+test
+scripts/update-administration.js
+scripts/update-populations.js
+scripts/population-plan.js
+scrapping.js
+sous-prefectures.js

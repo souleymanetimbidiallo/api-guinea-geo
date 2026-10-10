@@ -1,3 +1,8 @@
+const { serializeRecord } = require('../utils/populationResponse');
+const { prefectureFilter } = require('../utils/administrativeData');
+const { getStats } = require('../utils/administrativeStats');
+const { activeFilter } = require('../utils/administrativeData');
+const { escapeName } = require('../utils/searchName');
 const Region = require('../models/regionModel');
 const Prefecture = require('../models/prefectureModel'); 
 
@@ -6,7 +11,7 @@ exports.createRegion = async (req, res, next) => {
   try {
     const region = new Region(req.body);
     const savedRegion = await region.save();
-    res.status(201).json(savedRegion);
+    res.status(201).json(serializeRecord(savedRegion, { ...req.populationOptions, kind: 'regions' }));
   } catch (error) {
     next(error);
   }
@@ -15,8 +20,8 @@ exports.createRegion = async (req, res, next) => {
 // Lire toutes les régions
 exports.getAllRegions = async (req, res, next) => {
   try {
-    const regions = await Region.find().select('-_id -__v');
-    res.status(200).json(regions);
+    const regions = await Region.find(activeFilter).select('-_id -__v');
+    res.status(200).json(serializeRecord(regions, { ...req.populationOptions, kind: 'regions' }));
   } catch (error) {
     next(error);
   }
@@ -34,7 +39,7 @@ exports.getRegionByName = async (req, res, next) => {
         });
       }
   
-      const region = await Region.findOne({ name: new RegExp(name, 'i') }).select('-_id -__v'); // recherche insensible à la casse
+      const region = await Region.findOne({ ...activeFilter, name: new RegExp(escapeName(name), 'i') }).select('-_id -__v'); // recherche insensible à la casse
   
       if (!region) {
         return res.status(404).json({
@@ -43,49 +48,32 @@ exports.getRegionByName = async (req, res, next) => {
         });
       }
   
-      res.status(200).json(region);
+      res.status(200).json(serializeRecord(region, { ...req.populationOptions, kind: 'regions' }));
     } catch (error) {
       next(error);
     }
   };
 
   exports.getRegionStats = async (req, res, next) => {
-    try {
-      const totalRegions = await Region.countDocuments();
-  
-      const totalPopulation = await Region.aggregate([
-        { $group: { _id: null, total: { $sum: "$population" } } }
-      ]);
-  
-      const mostPopulated = await Region.findOne().sort({ population: -1 });
-      const largestRegion = await Region.findOne().sort({ area: -1 });
-  
-      res.status(200).json({
-        totalRegions,
-        totalPopulation: totalPopulation[0]?.total || 0,
-        mostPopulatedRegion: mostPopulated?.name || null,
-        largestRegion: largestRegion?.name || null
-      });
-    } catch (error) {
-      next(error);
-    }
+    try { res.status(200).json(await getStats(Region, activeFilter, { kind: 'regions', count: 'totalRegions', most: 'mostPopulatedRegion', largest: 'largestRegion' })); }
+    catch (error) { next(error); }
   };
   
   exports.getPrefecturesByRegionName = async (req, res, next) => {
     try {
       const regionName = req.params.name;
   
-      const region = await Region.findOne({ name: new RegExp(`^${regionName}$`, 'i') });
+      const region = await Region.findOne({ ...activeFilter, name: new RegExp(`^${escapeName(regionName)}$`, 'i') });
       if (!region) {
         return res.status(404).json({ message: "Région non trouvée", code: 404 });
       }
   
-      const prefectures = await Prefecture.find({ region: region._id }).select('-_id -__v');
+      const prefectures = await Prefecture.find({ ...prefectureFilter, region: region._id, parentStatus: { $ne: 'pending' } }).select('-_id -__v');
       if (!prefectures.length) {
         return res.status(404).json({ message: "Aucune préfecture trouvée pour cette région", code: 404 });
       }
   
-      res.status(200).json(prefectures);
+      res.status(200).json(serializeRecord(prefectures, { ...req.populationOptions, kind: 'prefectures' }));
     } catch (error) {
       next(error);
     }

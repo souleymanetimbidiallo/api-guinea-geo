@@ -4,9 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "node --test",
     "dev": "nodemon index.js",
-    "start": "node index.js"
+    "start": "node index.js",
+    "data:check": "node scripts/update-administration.js --dry-run",
+    "data:update": "node scripts/update-administration.js --apply",
+    "population:check": "node scripts/update-populations.js --dry-run",
+    "population:update": "node scripts/update-populations.js --apply"
   },
   "author": "",
   "license": "ISC",

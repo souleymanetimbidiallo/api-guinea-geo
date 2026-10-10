@@ -1,7 +1,9 @@
 const mongoose = require('mongoose');
+const metadata = require('./administrativeMetadata');
 const Schema = mongoose.Schema;
 
 const communeSchema = new Schema({
+  ...metadata,
   name: { type: String, required: true },
   population: Number,
   area: Number,
