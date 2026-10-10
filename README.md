@@ -1,314 +1,95 @@
-# 🇬🇳 API Guinée Geo
+<p align="center">
+  <a href="https://api-guinea-geo.vercel.app">
+    <img src=".github/assets/banner.svg" alt="API Guinée Geo — La Guinée, accessible." width="100%">
+  </a>
+</p>
 
-> Une API open-source fournissant des données géographiques structurées sur les subdivisions administratives de la Guinée.
+<p align="center">
+  <strong>Les données du territoire guinéen, accessibles aux développeurs et aux curieux.</strong><br>
+  Une API REST publique et un explorateur pour les régions, préfectures, sous-préfectures, communes et quartiers.
+</p>
 
----
+<p align="center">
+  <a href="https://api-guinea-geo.vercel.app">Découvrir le site</a> ·
+  <a href="https://api-guinea-geo.vercel.app/#data-browser">Explorer les données</a> ·
+  <a href="https://api-guinea-geo.vercel.app/api-docs/">Documentation Swagger</a> ·
+  <a href="https://api-guinea-geo.vercel.app/data-sources">Sources et limites</a>
+</p>
 
-## 🧭 Table des matières
-
-- [Présentation](#pr%C3%A9sentation)
-- [Technologies](#technologies)
-- [Hiérarchie administrative](#hi%C3%A9rarchie-administrative)
-- [Base URL](#base-url)
-- [Installation locale](#installation-locale)
-- [Endpoints principaux](#endpoints-principaux)
-- [Documentation Swagger](#documentation-swagger)
-- [Contribuer](#contribuer)
-- [Licence](#licence)
-
----
-
-## 📌 Présentation
-
-L'**API Guinée Geo** est une API RESTful qui permet d'accéder à la hiérarchie administrative de la Guinée :
-
-- Régions
-- Préfectures
-- Sous-préfectures
-- Communes
-- Quartiers
-
-Utile pour les développeurs, chercheurs, ONG, gouvernements locaux ou toute personne ayant besoin de données géographiques fiables sur la Guinée.
+<p align="center">
+  <img src="https://img.shields.io/badge/Node.js-22%20%2F%2024-173f35?style=flat-square" alt="Node.js 22 et 24">
+  <img src="https://img.shields.io/badge/API-REST%20%2F%20JSON-173f35?style=flat-square" alt="API REST / JSON">
+  <img src="https://img.shields.io/badge/Donn%C3%A9es-RGPH--4%202025-bf582f?style=flat-square" alt="Populations RGPH-4 2025">
+  <img src="https://img.shields.io/badge/D%C3%A9ploiement-Vercel-173f35?style=flat-square" alt="Déployé sur Vercel">
+</p>
 
 ---
 
-## 🛠️ Technologies
+[Présentation](#présentation) · [Données et sources](#données-et-sources) · [API](#api) · [Installation](#installation) · [Migrations](#migrations) · [Déploiement](#déploiement) · [Contribuer](#contribuer)
 
-- Node.js + Express.js (Backend REST API)
-- MongoDB + Mongoose (Base de données)
-- Swagger (Documentation API)
-- Vercel (Déploiement serverless)
+## Présentation
 
----
+**Guinée Geo** facilite l’exploration et l’utilisation des données territoriales de la République de Guinée. Le projet associe une interface de consultation et une API en lecture, utilisables pour des outils cartographiques, des projets open data ou des applications métier.
 
-## 🗺️ Hiérarchie administrative
+Son principe : **chaque population exposée doit être vérifiée, datée et accompagnée de son périmètre de référence**. Les créations administratives de 2026 et les observations du recensement de 2025 sont documentées séparément.
 
-```mermaid
-graph TD
-  Pays --> Region
-  Region --> Prefecture
-  Prefecture --> SousPrefecture
-  Region --> Commune
-  Commune --> Quartier
-```
+| Explorer | Construire | Comprendre les données |
+|---|---|---|
+| Recherche par nom, avec ou sans accents dans l’interface | Endpoints REST et réponses JSON | Sources et pages du rapport INS |
+| Fiches et navigation entre subdivisions liées | Documentation interactive Swagger | Année et périmètre des populations |
+| Carte, thèmes clair/sombre et affichage mobile | Copie et téléchargement des résultats | Valeurs absentes et rattachements à confirmer signalés |
 
----
+### Aperçu
 
-## 🌐 Base URL
+![Accueil de Guinée Geo : carte interactive de la Guinée et couverture de la base](.github/assets/preview.png)
 
-```
-https://api-guinea-geo.vercel.app
-```
+La carte représente le contour national et des repères approximatifs des chefs-lieux. Elle ne représente pas les limites administratives des régions.
 
----
+## Données et sources
 
-## 💻 Installation locale
+### Couverture de la base
+
+État vérifié lors de la publication du **10 octobre 2026** :
+
+| Niveau | Enregistrements actifs | Couverture |
+|---|---:|---|
+| Régions et zone spéciale | **10** | Beyla et Siguiri intégrées ; Conakry identifiée comme zone spéciale |
+| Préfectures ordinaires | **44** | Onze créations de 2026 intégrées ; Conakry exclue de ce décompte |
+| Sous-préfectures | **323** | Référentiel hérité partiel après historisation des promotions |
+| Communes | **13** | Communes de la zone spéciale de Conakry |
+| Quartiers | **2** | Couverture très partielle |
+
+Ces nombres décrivent **cette base**, pas une garantie d’exhaustivité nationale. Certains rattachements affectés par la réforme restent à confirmer : les liens concernés sont conservés comme anciens rattachements et marqués `parentStatus: "pending"`.
+
+### Références vérifiées
+
+| Données | Référence | Accès |
+|---|---|---|
+| Création des régions de Beyla et Siguiri | SGG — D/2026/0259/PRG/SGG, 20 août 2026 | [Décret officiel](https://sgg.gov.gn/document/downloadfile/584) |
+| Onze nouvelles préfectures et leurs régions | SGG — D/2026/0258/PRG/SGG, 20 août 2026 | [Décret officiel](https://sgg.gov.gn/document/downloadfile/583) |
+| Treize communes de Conakry | DGE — décisions relatives au scrutin communal du 31 mai 2026 | [Document officiel](https://www.dge.gov.gn/uploads/documents/1781875516973-CONAKRY.pdf) |
+| Populations de référence 2025 | INS — RGPH-4, résultats préliminaires publiés en février 2026 | [Rapport officiel, PDF volumineux](https://www.stat-guinee.org/images/Documents/Publications/INS/rapports_enquetes/RGPH-4/Resultats_preliminaires_rgph_4.pdf) |
+| Contour national | Natural Earth — Admin 0 Countries, 1:50m | [Jeu de données](https://github.com/nvkelso/natural-earth-vector/blob/master/geojson/ne_50m_admin_0_countries.geojson) |
+
+Le référentiel démographique vérifié couvre **8 régions au périmètre de 2025, 33 préfectures et 13 communes de Conakry**, soit **54 observations**. Les contrôles des sommes et des effectifs masculins/féminins concordent avec le total national de **17 521 167 habitants**.
+
+**Une population recensée en 2025 n’est pas une projection pour 2026.** Les chiffres des anciennes unités ne sont pas transférés aux régions et préfectures créées en août 2026. Les superficies héritées restent également à vérifier.
+
+Les référentiels versionnés sont disponibles dans [data/administrative-update-2026.json](data/administrative-update-2026.json) et [data/populations-rgph4-2025.json](data/populations-rgph4-2025.json).
+
+## API
+
+**Base URL :** `https://api-guinea-geo.vercel.app`
+
+L’API publique est accessible en lecture sans clé. La [documentation Swagger](https://api-guinea-geo.vercel.app/api-docs/) décrit les paramètres et les réponses.
+
+### Première requête
 
 ```bash
-git clone https://github.com/ton-utilisateur/api-guinea-geo.git
-cd api-guinea-geo
-npm install
+curl --fail "https://api-guinea-geo.vercel.app/regions/search?name=Conakry"
 ```
 
-Créer un fichier `.env` avec :
-
-```env
-MONGO_URI=<ton lien MongoDB>
-```
-
-Lancer le serveur :
-```bash
-npm run dev
-```
-
----
-
-## 🔗 Endpoints principaux
-
-### ✅ Régions
-- `GET /regions` — liste toutes les régions
-- `GET /regions/search?name=Labé` — recherche par nom
-- `GET /regions/:name/prefectures` — préfectures d'une région
-
-### ✅ Préfectures
-- `GET /prefectures` — liste toutes les préfectures
-- `GET /prefectures/search?name=Labé` — recherche par nom
-- `GET /prefectures/stats` — statistiques globales ou par région (`?region=Faranah`)
-
-### ✅ Sous-Préfectures
-- `GET /sous-prefectures` — liste complète
-- `GET /sous-prefectures/search?name=Koulé`
-
-### ✅ Communes
-- `GET /communes`
-- `GET /communes/search?name=Kaloum`
-
-### ✅ Quartiers
-- `GET /quartiers`
-- `GET /quartiers/search?name=Almamya`
-
----
-
-## 📘 Documentation Swagger
-
-Une documentation interactive est disponible ici :
-
-📍 [`/api-docs`](https://api-guinea-geo.vercel.app/api-docs)
-
-Tu peux la tester en local :
-```bash
-npm run dev
-# Puis ouvre http://localhost:3000/api-docs
-```
-
----
-
-## 🤝 Contribuer
-
-Les contributions sont les bienvenues ! Pour contribuer :
-
-```bash
-git clone https://github.com/ton-utilisateur/api-guinea-geo.git
-cd api-guinea-geo
-git checkout -b ma-contribution
-```
-
-Puis ouvre une **pull request** ✨
-
----
-
-## 📄 Licence
-
-Ce projet est sous licence **MIT**. Tu peux l'utiliser librement pour des projets personnels, professionnels ou éducatifs.
-
----
-
-## 🇬🇳 Vive la Guinée !
-
-## Vérification et limites des données
-
-`npm test` exécute les tests HTTP sans connexion à MongoDB (modèles simulés).
-`npm start` et `npm run dev` nécessitent une variable `MONGO_URI` valide.
-Le serveur écoute sur `PORT`, ou 3000 par défaut, après connexion à MongoDB.
-Exemple : `PORT=3001 npm start`. La documentation interactive est à `/api-docs`.
-
-Avant la migration administrative, la vérification locale du 10 octobre 2026
-retournait 8 régions,
-34 préfectures, 333 sous-préfectures, 5 communes et 2 quartiers. Il s'agit d'un
-instantané de cette base, pas d'une garantie d'exhaustivité ou d'actualité.
-Les communes et quartiers ont une couverture partielle. La source et la date
-de référence de chaque jeu de données restent à documenter ; les populations
-et superficies doivent être validées avant toute utilisation statistique.
-Les scripts d'insertion ne doivent pas être relancés sur une base existante
-sans vérifier leur comportement et les doublons.
-
-Avant migration, les sommes de population héritées observées étaient différentes : 10 628 972 pour les
-régions et 9 462 278 pour les préfectures. Leur périmètre et leur date de
-référence doivent être vérifiés avant de comparer ces totaux.
-
-### Carte de l’accueil
-
-Le contour national simplifié (`public/guinea.geojson`) est extrait du jeu
-Natural Earth Admin 0 Countries au 1:50m, domaine public. Source :
-https://github.com/nvkelso/natural-earth-vector/blob/master/geojson/ne_50m_admin_0_countries.geojson
-Les repères correspondent à des positions approximatives des chefs-lieux ;
-ils ne représentent pas les limites administratives des régions. Les tuiles
-sont fournies par OpenStreetMap.
-
-### Explorateur territorial
-
-L’accueil propose une recherche par nom sans distinction de casse ou
-d’accents, des fiches et une navigation entre subdivisions via les liens
-présents dans les données. Les listes sont paginées par 12 ; les exports
-JSON contiennent tous les résultats filtrés, pas seulement la page visible.
-Les valeurs absentes sont indiquées comme non renseignées. L’explorateur
-utilise les endpoints de listes existants sans modifier la base MongoDB.
-
-## Mise à jour administrative 2026
-
-Le référentiel `data/administrative-update-2026.json` consigne les décrets
-SGG D/2026/0258 et D/2026/0259 du 20 août 2026 : régions de Beyla et Siguiri,
-onze nouvelles préfectures et leurs régions explicitement citées. Les
-13 communes de Conakry sont vérifiées dans les décisions DGE du scrutin
-du 31 mai 2026. Leurs sources sont exposées par `GET /data-sources`.
-
-```sh
-npm run data:check   # simulation en lecture seule
-npm run data:update  # application à la base définie par MONGO_URI
-```
-
-La migration sauvegarde les cinq collections en Extended JSON dans
-`.local/backups/` (fichiers privés, ignorés par Git), puis applique les
-changements dans une transaction MongoDB. Elle nécessite un replica set
-ou un cluster prenant en charge les transactions. Une erreur annule
-l’ensemble de la transaction ; aucun fallback non transactionnel n’est
-effectué. Le marqueur `data_updates` empêche une double application.
-Ne pas utiliser les anciens scripts `databases/insert*.js` : ils suppriment
-et recréent les collections et ne constituent pas cette migration.
-
-Les identifiants et les anciennes valeurs sont conservés. Les promotions
-sont repérées par nom **et ancien parent**, pour ne pas confondre les
-homonymes (notamment Dialakoro). Les variantes connues sont documentées
-dans le référentiel. Une ancienne localité absente produit un avertissement
-et n’est pas reconstituée par supposition. Conakry est conservée comme
-zone spéciale et exclue du décompte des préfectures ordinaires.
-
-Métadonnées ajoutées :
-- `administrativeStatus` : active ou historical ; les listes publiques
-  excluent les enregistrements historisés.
-- `parentStatus` : verified, legacy-unverified ou pending ; pending
-  signifie que le parent enregistré est le dernier rattachement connu.
-  Les endpoints de descendants et l’explorateur ne l’affichent pas comme
-  un rattachement actuel confirmé.
-- `metricsStatus` : verified, legacy-unverified ou unavailable. Les
-  anciennes statistiques ne sont pas rebaptisées RGPH-4 et aucun chiffre
-  n’est copié d’une ancienne entité vers une nouvelle.
-- `sources`, `reviewedAt`, `effectiveFrom` et `notes` documentent ce qui
-  a effectivement été vérifié ; les dates de création inconnues restent
-  absentes.
-
-**Changement des réponses statistiques :** `totalPopulation` et les
-classements sont `null` lorsque la couverture vérifiée est incomplète.
-`populationCoverage` indique le nombre de valeurs vérifiées et l’année
-commune, lorsqu’elle existe. Les chiffres hérités sont conservés dans MongoDB
-et accessibles explicitement via `includeHistory=true`.
-
-Cette migration ne prétend pas fournir un référentiel national complet des
-communes, quartiers ou sous-préfectures. Elle ne reconstruit ni les contours
-régionaux ni les listes de descendants des nouvelles préfectures sans les
-actes complémentaires du MATD. Les chiffres affichés sont ceux des
-enregistrements actifs dans cette base, pas une preuve d’exhaustivité.
-
-Après application à la base de développement le 10 octobre 2026 :
-10 régions et zone spéciale, 44 préfectures ordinaires, 323 anciens
-enregistrements de sous-préfectures encore actifs, 13 communes de Conakry
-et 2 quartiers. Le total des sous-préfectures représente uniquement la
-couverture de la base après historisation des promotions, pas le total
-national officiel. L’ancien enregistrement de Siguirini n’était pas présent
-et n’a pas été inventé ; sa nouvelle préfecture est créée à partir du décret.
-
-## Populations RGPH-4 vérifiées — référence 2025
-
-Le fichier `data/populations-rgph4-2025.json` contient les valeurs vérifiées
-dans le rapport officiel INS « RGPH-4 2025 — Résultats préliminaires » :
-8 régions au périmètre du recensement, 33 préfectures et 13 communes de
-Conakry. Chaque ligne indique la page PDF et la page imprimée de sa source.
-La publication date du 25 février 2026 ; le dénombrement a eu lieu en juillet
-2025. Le fichier n’est pas une projection pour 2026.
-
-Contrôles effectués : masculin + féminin = total pour chaque ligne,
-somme des préfectures = population de chaque région, somme des 13 communes
-= 3 407 327 habitants de Conakry, somme des huit régions = 17 521 167
-habitants. Les tableaux ont été vérifiés visuellement (pages PDF 28, 38, 40
-et 41 ; pages imprimées 26, 36, 38 et 39).
-
-Ce référentiel de population reste distinct de la migration administrative
-de 2026. Son import s’effectue via les commandes dédiées ci-dessous. Les nouvelles
-régions de Beyla et Siguiri ne figuraient pas dans le découpage régional
-du recensement. Les valeurs 2025 des anciennes préfectures et sous-préfectures
-ne définissent pas la population des entités créées en août 2026. Une
-intégration devra conserver l’année, le périmètre et le caractère préliminaire
-de chaque observation, et préserver les anciennes valeurs.
-
-### Intégration des observations de population
-
-```sh
-npm run population:check   # vérification des correspondances, aucune écriture
-npm run population:update # sauvegarde privée puis transaction MongoDB
-```
-
-Les 54 observations sourcées sont ajoutées à `populationObservations` sur
-les fiches correspondantes : 8 régions de 2025, 33 anciennes préfectures et
-13 communes de Conakry. Les valeurs `population` et `area` héritées, les
-identifiants, les rattachements et les statuts administratifs sont conservés.
-Les observations portent `year: 2025`, `publicationStatus: preliminary`,
-`boundaryCompatibility: not-assessed`, la source INS et les pages exactes.
-
-L’import refuse un nom absent ou ambigu, une incohérence arithmétique, une
-entité créée après juillet 2025 ou une observation déjà présente avec une
-valeur différente. Une réexécution ne crée aucun doublon. Les régions de
-Beyla et Siguiri et les onze préfectures de 2026 ne reçoivent aucune
-population par transfert. Les fiches affichent le RGPH-4 et son année ;
-les anciennes populations restent accessibles via `includeHistory=true`.
-
-`GET /populations/rgph4-2025` expose le référentiel complet et son total
-national de 17 521 167 habitants. Les endpoints `/regions/stats` et
-`/prefectures/stats` continuent à laisser `totalPopulation` à `null` si
-aucune couverture vérifiée n’est établie pour les périmètres actuels :
-les observations 2025 ne sont pas additionnées à des entités de 2026.
-
-## Contrat de population de l’API
-
-Toutes les listes, recherches et sous-listes utilisent la même sélection :
-`population` contient la dernière observation vérifiée, ou `null` si aucune
-observation fiable n’est disponible. Une valeur numérique héritée seule
-ne suffit jamais, même si un ancien statut global était `verified`.
-Les réponses précisent `populationReferenceYear`, `populationStatus`,
-`populationSource`, `populationGeographicReference` et
-`populationBoundaryCompatibility`. L’année de référence ne doit pas être
-confondue avec l’année de publication ou une projection pour 2026.
-
-Exemple de réponse pour Conakry :
+Extrait de réponse :
 
 ```json
 {
@@ -320,24 +101,180 @@ Exemple de réponse pour Conakry :
 }
 ```
 
-Le référentiel RGPH-4 importé est contrôlé par niveau, nom, valeur et
-empreinte du document source. Les futurs imports d’observations doivent
-porter `verificationStatus: verified` et une provenance et un périmètre
-explicites. Les observations invalides, futures, non vérifiées ou antérieures
-à la création de l’entité sont exclues. La plus récente est sélectionnée ;
-à année égale, les résultats définitifs ont priorité sur les préliminaires.
+Exemple avec le `fetch` natif de Node.js, dans un fichier `.mjs` :
 
-Par défaut, les anciens chiffres et `populationObservations` ne figurent
-plus dans les réponses. Ajouter `?includeHistory=true` pour recevoir
-`populationHistory`, comprenant la valeur héritée et les observations
-archivées. La valeur principale reste identique. Ce changement concerne
-les réponses publiques ; les données MongoDB et les sauvegardes sont
-conservées. Les clients qui lisaient `populationObservations` doivent
-utiliser les champs principaux ou demander explicitement l’historique.
+```js
+const response = await fetch(
+  'https://api-guinea-geo.vercel.app/communes/search?name=Lambanyi'
+);
 
-Les statistiques emploient cette même sélection. `populationCoverage`
-distingue les références vérifiées des références compatibles avec les
-périmètres actuels (`matchingCurrentBoundaries`). Une couverture partielle,
-des années différentes ou des périmètres non confirmés empêchent le calcul
-d’un total actuel et d’un classement. Le total officiel RGPH-4 de 2025 reste
-disponible sur `/populations/rgph4-2025`.
+if (!response.ok) throw new Error(`Erreur HTTP ${response.status}`);
+
+const commune = await response.json();
+console.log(commune.name, commune.population, commune.populationReferenceYear);
+```
+
+### Endpoints
+
+Toutes les routes ci-dessous utilisent **GET**.
+
+| Route | Description |
+|---|---|
+| `/regions` | Régions et zone spéciale présentes dans la base |
+| `/regions/search?name=Conakry` | Recherche d’une région par nom |
+| `/regions/stats` | Statistiques et couverture des populations vérifiées |
+| `/regions/:name/prefectures` | Préfectures enregistrées d’une région, hors rattachements en attente |
+| `/prefectures` | Préfectures ordinaires actives |
+| `/prefectures/search?name=Kankan` | Recherche d’une préfecture par nom |
+| `/prefectures/stats` | Statistiques et couverture des populations vérifiées |
+| `/sous-prefectures` | Sous-préfectures actives enregistrées |
+| `/sous-prefectures/search?name=Bankon` | Recherche d’une sous-préfecture par nom |
+| `/communes` | Communes enregistrées |
+| `/communes/search?name=Lambanyi` | Recherche d’une commune par nom |
+| `/quartiers` | Quartiers enregistrés |
+| `/quartiers/search?name=Almamya` | Recherche d’un quartier par nom |
+| `/data-sources` | Références et limites de la mise à jour administrative |
+| `/populations/rgph4-2025` | Référentiel du recensement de 2025 et total national |
+
+Les recherches de l’API sont insensibles à la casse. Les recherches de préfectures, sous-préfectures, communes et quartiers attendent un nom complet ; celles des régions acceptent aussi une partie du nom. Les accents doivent être respectés dans les requêtes API. L’explorateur propose séparément une recherche sans distinction d’accents.
+
+### Population et historique
+
+| Champ | Signification |
+|---|---|
+| `population` | Dernière observation vérifiée, ou `null` si aucune n’est disponible |
+| `populationReferenceYear` | Année de référence de l’observation sélectionnée |
+| `populationStatus` | `preliminary`, `final` ou `unavailable` |
+| `populationSource` | Source, date de publication et pages du rapport lorsqu’elles sont disponibles |
+| `populationGeographicReference` | Périmètre territorial de l’observation |
+| `populationBoundaryCompatibility` | `verified` ou `not-assessed` ; `null` sans observation |
+
+Une valeur héritée non vérifiée ne remplace jamais une observation fiable. Les anciens chiffres sont masqués par défaut. Pour les consulter explicitement :
+
+```bash
+curl --fail \
+  "https://api-guinea-geo.vercel.app/regions/search?name=Conakry&includeHistory=true"
+```
+
+La réponse ajoute `populationHistory`, comprenant la valeur héritée et les observations conservées. Le champ principal `population` reste inchangé. `includeHistory` accepte uniquement `true` ou `false`.
+
+Les statistiques appliquent la même sélection. `totalPopulation` et les classements restent `null` si la couverture est partielle, les années diffèrent ou les périmètres actuels ne sont pas confirmés. `populationCoverage` expose notamment `verified`, `matchingCurrentBoundaries`, `total`, `referenceYear` et `complete`.
+
+Le total national du RGPH-4 de 2025 est consultable sur `/populations/rgph4-2025` ; il est distinct d’une somme des unités administratives de 2026.
+
+### Réponses et erreurs
+
+| Code | Cas |
+|---|---|
+| `200` | Requête réussie |
+| `400` | Paramètre manquant ou invalide |
+| `404` | Lieu, route ou descendants recherchés non disponibles |
+| `500` | Erreur interne de traitement |
+| `503` | Connexion à MongoDB indisponible dans le handler Vercel |
+
+Les erreurs applicatives renvoient un message JSON ; les erreurs internes ne divulguent pas les détails de connexion.
+
+## Installation
+
+### Prérequis
+
+- **Node.js 22 ou 24** ; la production Vercel utilise Node.js 22.
+- **npm** et une connexion **MongoDB** valide.
+- Pour appliquer les migrations : un replica set ou un cluster MongoDB prenant en charge les transactions.
+
+```bash
+git clone https://github.com/souleymanetimbidiallo/api-guinea-geo.git
+cd api-guinea-geo
+npm ci
+cp .env.example .env
+```
+
+Renseigner `.env` avec la connexion à votre base :
+
+```env
+MONGO_URI=mongodb://127.0.0.1:27017/guinea-geo
+PORT=3000
+```
+
+Cette URL suppose qu’un serveur MongoDB local est disponible. Ne pas versionner les identifiants de connexion.
+
+```bash
+npm run dev
+```
+
+Accueil : **http://localhost:3000** · Swagger : **http://localhost:3000/api-docs/**
+
+Le serveur démarre après la connexion à MongoDB. Pour le lancer sans rechargement automatique : `npm start`. Le port peut être modifié, par exemple avec `PORT=3001 npm start`.
+
+### Tests
+
+```bash
+npm test
+```
+
+La suite utilise le runner natif de Node.js, des requêtes HTTP locales et des modèles simulés : elle ne nécessite pas de connexion MongoDB. **49 tests ont été validés lors de la publication du 10 octobre 2026**, couvrant les recherches, les erreurs, les migrations, les homonymes, la sélection des populations et l’historique optionnel.
+
+## Migrations
+
+Les migrations fournies mettent à jour **un référentiel historique déjà présent**. Elles ne constituent pas un initialiseur complet pour une base vide.
+
+| Commande | Effet |
+|---|---|
+| `npm run data:check` | Simulation de la mise à jour administrative, en lecture seule |
+| `npm run data:update` | Intégration des créations administratives et des communes vérifiées |
+| `npm run population:check` | Vérification des correspondances démographiques, sans écriture |
+| `npm run population:update` | Import des observations RGPH-4 de 2025 |
+
+Commencer par les simulations et examiner les correspondances avant d’appliquer les mises à jour à la base définie par `MONGO_URI`.
+
+Les imports créent une sauvegarde privée des collections concernées dans `.local/backups/`, puis utilisent une transaction MongoDB. Un échec de transaction annule les écritures. Les marqueurs `data_updates` empêchent une double application.
+
+Les identifiants et les valeurs historiques sont conservés. Une correspondance ambiguë interrompt l’import ; les promotions administratives tiennent compte du nom **et du parent d’origine**, notamment pour les homonymes comme Dialakoro. Les observations démographiques sont stockées dans `populationObservations` et sélectionnées par la couche de réponse de l’API.
+
+Les anciens scripts `databases/insert*.js`, lorsqu’ils sont présents localement, suppriment et recréent les collections : utiliser les migrations ci-dessus pour cette mise à jour.
+
+## Déploiement
+
+Le site est publié sur **[api-guinea-geo.vercel.app](https://api-guinea-geo.vercel.app)**.
+
+- Le handler serverless est [index.js](index.js) ; [app.js](app.js) assemble les routes Express.
+- [vercel.json](vercel.json) inclut les fichiers statiques, les référentiels et Swagger.
+- `MONGO_URI` doit être configurée comme **secret de production** sur le projet Vercel.
+- [.vercelignore](.vercelignore) exclut les variables locales, sauvegardes, anciens scripts et fichiers de développement de l’envoi.
+
+Le déploiement publié a été vérifié avec **16 contrôles HTTP sur la version préparée**, puis **6 contrôles publics après promotion**, ainsi qu’un contrôle navigateur de l’accueil et de l’explorateur.
+
+## Structure du projet
+
+```text
+api-guinea-geo/
+├── app.js                 # Application Express et endpoints de référence
+├── index.js               # Démarrage local et handler Vercel
+├── controllers/           # Lecture des données et réponses HTTP
+├── routes/                # Routes publiques
+├── models/                # Schémas MongoDB et métadonnées
+├── utils/                 # Population, statistiques, connexion et erreurs
+├── data/                  # Référentiels versionnés et sources
+├── scripts/               # Plans et migrations contrôlées
+├── public/                # Accueil, explorateur, thèmes, carte et favicon
+└── test/                  # Tests HTTP, migrations et contrat de population
+```
+
+## Contribuer
+
+Les contributions utiles portent notamment sur les sources officielles, les rattachements administratifs, la couverture locale, les tests et l’accessibilité.
+
+Pour proposer une mise à jour de données, préciser **la source, la date, le niveau administratif et le périmètre concerné**. Un chiffre d’une ancienne subdivision ne doit pas être attribué à une nouvelle entité sans correspondance vérifiée.
+
+```bash
+git switch -c contribution/mon-amelioration
+npm test
+```
+
+Ouvrir ensuite une pull request décrivant le changement et sa validation.
+
+## Crédits et licence
+
+Créé par **[Souleymane Diallo](https://souleymanetimbidiallo.github.io/)**.
+
+Le manifeste [package.json](package.json) déclare la licence **ISC**. Les données restent accompagnées des références de leurs producteurs. Le contour national utilise Natural Earth ; le fond cartographique utilise les tuiles OpenStreetMap avec attribution aux contributeurs.
